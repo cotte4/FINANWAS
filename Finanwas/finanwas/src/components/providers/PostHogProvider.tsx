@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { initPostHog, posthog } from '@/lib/analytics/posthog'
+import posthog from 'posthog-js'
 
 function PostHogPageView() {
   const pathname = usePathname()
@@ -10,7 +10,7 @@ function PostHogPageView() {
 
   // Track pageviews
   useEffect(() => {
-    if (pathname && typeof window !== 'undefined' && posthog.__loaded) {
+    if (pathname && typeof window !== 'undefined') {
       let url = window.origin + pathname
       if (searchParams && searchParams.toString()) {
         url = url + `?${searchParams.toString()}`
@@ -26,10 +26,6 @@ function PostHogPageView() {
 }
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    initPostHog()
-  }, [])
-
   return (
     <>
       <Suspense fallback={null}>
