@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
 
+// Prevent static generation for auth pages
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 export const metadata: Metadata = {
   title: 'Autenticación',
   description: 'Inicia sesión o crea tu cuenta en Finanwas para comenzar tu camino hacia la libertad financiera. Accede a cursos, gestiona tu portfolio y alcanza tus metas de ahorro.',

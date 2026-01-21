@@ -1,0 +1,2 @@
+The audit.ts and audit-logger.ts files need to be refactored to use Supabase instead of raw SQL.
+Quick fix: Replace 'db.query()' calls with Supabase client queries.

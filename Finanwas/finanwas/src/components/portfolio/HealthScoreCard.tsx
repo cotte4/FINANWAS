@@ -22,6 +22,7 @@ import {
   SparklesIcon,
   InfoIcon
 } from "lucide-react"
+import { captureEvent } from '@/lib/analytics/posthog'
 
 /**
  * Portfolio Health Score Card Component
@@ -115,6 +116,20 @@ export function HealthScoreCard({ className }: HealthScoreCardProps) {
   React.useEffect(() => {
     fetchHealthScore()
   }, [fetchHealthScore])
+
+  // Track health score view
+  React.useEffect(() => {
+    if (!isLoading && healthScore) {
+      captureEvent('health_score_viewed', {
+        score: healthScore.totalScore,
+        rating: healthScore.rating,
+        diversification_score: healthScore.breakdown.diversification.score,
+        risk_score: healthScore.breakdown.riskManagement.score,
+        performance_score: healthScore.breakdown.performance.score,
+        best_practices_score: healthScore.breakdown.bestPractices.score,
+      });
+    }
+  }, [isLoading, healthScore])
 
   const handleRefresh = async () => {
     setIsRefreshing(true)

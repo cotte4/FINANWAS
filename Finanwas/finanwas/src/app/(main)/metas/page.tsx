@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EmptyState } from "@/components/ui/empty-state"
+import { SwipeableCard } from "@/components/ui/SwipeableCard"
+import { PullToRefresh } from "@/components/ui/PullToRefresh"
 import {
   Dialog,
   DialogContent,
@@ -289,7 +291,8 @@ export default function MetasPage() {
   }, [])
 
   return (
-    <div className="p-6 space-y-8">
+    <PullToRefresh onRefresh={fetchGoals}>
+      <div className="p-6 space-y-8">
       <PageHeader
         title="Mis Metas de Ahorro"
         description="Administra tus objetivos financieros y sigue tu progreso"
@@ -376,83 +379,92 @@ export default function MetasPage() {
               const remaining = goal.target_amount - goal.current_amount
 
               return (
-                <Card key={goal.id}>
-                  <CardHeader>
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <CardTitle className="text-xl truncate">{goal.name}</CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                          {goal.target_date && (
-                            <div className="flex items-center gap-1">
-                              <CalendarIcon className="size-3" />
-                              <span>
-                                {daysRemaining !== null && daysRemaining > 0
-                                  ? `${daysRemaining} días restantes`
-                                  : daysRemaining === 0
-                                  ? "Vence hoy"
-                                  : "Vencida"}
-                              </span>
-                            </div>
-                          )}
-                        </CardDescription>
-                      </div>
-                      <Badge
-                        variant={goal.progress >= 75 ? "default" : "secondary"}
-                        className="shrink-0"
-                      >
-                        {goal.progress.toFixed(0)}%
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {/* Progress */}
-                    <div className="space-y-2">
-                      <Progress value={goal.progress} className="h-2" />
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="font-medium">
-                          ${goal.current_amount.toLocaleString()} {goal.currency}
-                        </span>
-                        <span className="text-muted-foreground">
-                          de ${goal.target_amount.toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Remaining */}
-                    <div className="p-3 rounded-lg bg-accent">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Falta</p>
-                          <p className="text-lg font-bold">${remaining.toLocaleString()}</p>
+                <SwipeableCard
+                  key={goal.id}
+                  onDelete={() => {
+                    setShowDeleteDialog(goal.id)
+                  }}
+                  deleteLabel="Eliminar"
+                  className="md:pointer-events-none"
+                >
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <CardTitle className="text-xl truncate">{goal.name}</CardTitle>
+                          <CardDescription className="flex items-center gap-2 mt-1">
+                            {goal.target_date && (
+                              <div className="flex items-center gap-1">
+                                <CalendarIcon className="size-3" />
+                                <span>
+                                  {daysRemaining !== null && daysRemaining > 0
+                                    ? `${daysRemaining} días restantes`
+                                    : daysRemaining === 0
+                                    ? "Vence hoy"
+                                    : "Vencida"}
+                                </span>
+                              </div>
+                            )}
+                          </CardDescription>
                         </div>
-                        <TrendingUpIcon className="size-8 text-muted-foreground" />
+                        <Badge
+                          variant={goal.progress >= 75 ? "default" : "secondary"}
+                          className="shrink-0"
+                        >
+                          {goal.progress.toFixed(0)}%
+                        </Badge>
                       </div>
-                    </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {/* Progress */}
+                      <div className="space-y-2">
+                        <Progress value={goal.progress} className="h-2" />
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium">
+                            ${goal.current_amount.toLocaleString()} {goal.currency}
+                          </span>
+                          <span className="text-muted-foreground">
+                            de ${goal.target_amount.toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
 
-                    {/* Actions */}
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant="outline"
-                        className="flex-1"
-                        onClick={() => setShowContributionDialog(goal.id)}
-                      >
-                        <PlusIcon className="mr-2 size-4" />
-                        Agregar Aporte
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => openEditDialog(goal)}>
-                        <Edit2Icon className="size-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-destructive"
-                        onClick={() => setShowDeleteDialog(goal.id)}
-                      >
-                        <Trash2Icon className="size-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                      {/* Remaining */}
+                      <div className="p-3 rounded-lg bg-accent">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground">Falta</p>
+                            <p className="text-lg font-bold">${remaining.toLocaleString()}</p>
+                          </div>
+                          <TrendingUpIcon className="size-8 text-muted-foreground" />
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => setShowContributionDialog(goal.id)}
+                        >
+                          <PlusIcon className="mr-2 size-4" />
+                          Agregar Aporte
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => openEditDialog(goal)}>
+                          <Edit2Icon className="size-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-destructive md:inline-flex hidden"
+                          onClick={() => setShowDeleteDialog(goal.id)}
+                        >
+                          <Trash2Icon className="size-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </SwipeableCard>
               )
             })}
           </div>
@@ -732,6 +744,7 @@ export default function MetasPage() {
           </form>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </PullToRefresh>
   )
 }

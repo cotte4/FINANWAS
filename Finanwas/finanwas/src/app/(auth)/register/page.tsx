@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { captureEvent } from '@/lib/analytics/posthog';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -96,6 +97,10 @@ export default function RegisterPage() {
       }
 
       // Registration successful - redirect to onboarding
+      captureEvent('user_registered', {
+        method: 'email',
+        has_invitation_code: true,
+      });
       router.push('/onboarding');
     } catch (err) {
       setError('Error al crear la cuenta. Intentá nuevamente.');

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ErrorTrackingProvider } from "@/components/providers/ErrorTrackingProvider";
+import { PostHogProvider } from "@/components/providers/PostHogProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -129,9 +130,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ErrorTrackingProvider />
-          {children}
-          <Toaster />
+          <PostHogProvider>
+            <ErrorTrackingProvider />
+            {children}
+            <Toaster />
+          </PostHogProvider>
         </ThemeProvider>
       </body>
     </html>

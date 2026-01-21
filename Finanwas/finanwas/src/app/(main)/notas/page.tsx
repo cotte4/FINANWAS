@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EmptyState } from "@/components/ui/empty-state"
+import { SwipeableCard } from "@/components/ui/SwipeableCard"
+import { PullToRefresh } from "@/components/ui/PullToRefresh"
 import {
   Dialog,
   DialogContent,
@@ -264,7 +266,8 @@ export default function NotasPage() {
   }, [notes])
 
   return (
-    <div className="p-6 space-y-8">
+    <PullToRefresh onRefresh={fetchNotes}>
+      <div className="p-6 space-y-8">
       <PageHeader
         title="Mis Notas"
         description="Notas y análisis de inversiones"
@@ -346,53 +349,60 @@ export default function NotasPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredNotes.map((note) => (
-            <Card key={note.id} className="flex flex-col">
-              <CardHeader>
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <div className="flex flex-wrap gap-1">
-                    {note.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
-                        {tag}
+            <SwipeableCard
+              key={note.id}
+              onDelete={() => setShowDeleteDialog(note.id)}
+              deleteLabel="Eliminar"
+              className="md:pointer-events-none"
+            >
+              <Card className="flex flex-col">
+                <CardHeader>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="flex flex-wrap gap-1">
+                      {note.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    {note.linked_ticker && (
+                      <Badge variant="default" className="shrink-0">
+                        <TrendingUpIcon className="mr-1 size-3" />
+                        {note.linked_ticker}
                       </Badge>
-                    ))}
+                    )}
                   </div>
-                  {note.linked_ticker && (
-                    <Badge variant="default" className="shrink-0">
-                      <TrendingUpIcon className="mr-1 size-3" />
-                      {note.linked_ticker}
-                    </Badge>
-                  )}
-                </div>
-                <CardTitle className="text-lg line-clamp-2">{note.title}</CardTitle>
-                <CardDescription className="text-xs">
-                  Actualizada: {formatDate(note.updated_at)}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col justify-between">
-                <p className="text-sm text-muted-foreground line-clamp-4 mb-4">
-                  {note.content}
-                </p>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex-1"
-                    onClick={() => openEditDialog(note)}
-                  >
-                    <Edit2Icon className="mr-2 size-4" />
-                    Editar
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-destructive"
-                    onClick={() => setShowDeleteDialog(note.id)}
-                  >
-                    <Trash2Icon className="size-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                  <CardTitle className="text-lg line-clamp-2">{note.title}</CardTitle>
+                  <CardDescription className="text-xs">
+                    Actualizada: {formatDate(note.updated_at)}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col justify-between">
+                  <p className="text-sm text-muted-foreground line-clamp-4 mb-4">
+                    {note.content}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1"
+                      onClick={() => openEditDialog(note)}
+                    >
+                      <Edit2Icon className="mr-2 size-4" />
+                      Editar
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-destructive md:inline-flex hidden"
+                      onClick={() => setShowDeleteDialog(note.id)}
+                    >
+                      <Trash2Icon className="size-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </SwipeableCard>
           ))}
         </div>
       )}
@@ -651,6 +661,7 @@ export default function NotasPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </PullToRefresh>
   )
 }

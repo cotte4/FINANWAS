@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { useLessonTracking, formatTime } from "@/hooks/useLessonTracking"
+import { captureEvent } from '@/lib/analytics/posthog'
 
 /**
  * Lesson Page
@@ -118,6 +119,14 @@ export default function LessonPage() {
             lesson_slug: lessonSlug,
           }),
         })
+
+        // Track lesson start
+        captureEvent('lesson_started', {
+          course_slug: courseSlug,
+          lesson_slug: lessonSlug,
+          lesson_title: data.title,
+          duration_minutes: data.duration_minutes,
+        });
       } catch (error) {
         console.error('Error loading lesson:', error)
         toast.error('Error al cargar la lección')
@@ -157,6 +166,15 @@ export default function LessonPage() {
           completed: lessonData.courseProgress.completed + 1,
         },
       })
+
+      // Track lesson completion
+      captureEvent('lesson_completed', {
+        course_slug: courseSlug,
+        lesson_slug: lessonSlug,
+        time_spent_seconds: timeSpent,
+        completion_rate: readingProgress,
+        course_progress: ((lessonData.courseProgress.completed + 1) / lessonData.courseProgress.total) * 100,
+      });
 
       toast.success('¡Lección completada!')
     } catch (error) {

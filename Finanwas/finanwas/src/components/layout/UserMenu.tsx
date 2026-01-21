@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/contexts/UserContext';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { resetUser } from '@/lib/analytics/posthog';
 
 /**
  * User menu dropdown component
@@ -42,6 +43,9 @@ export function UserMenu() {
       });
 
       if (response.ok) {
+        // Reset PostHog user identity
+        resetUser();
+
         router.push('/login');
         router.refresh();
       } else {

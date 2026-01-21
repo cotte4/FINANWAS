@@ -8,6 +8,7 @@ import { LearningWidget } from "@/components/dashboard/LearningWidget"
 import { GoalsWidget } from "@/components/dashboard/GoalsWidget"
 import { TipWidget } from "@/components/dashboard/TipWidget"
 import { ProfileBanner } from "@/components/dashboard/ProfileBanner"
+import { NewsFeedWidget } from "@/components/dashboard/NewsFeedWidget"
 
 /**
  * Dashboard Page
@@ -19,6 +20,7 @@ import { ProfileBanner } from "@/components/dashboard/ProfileBanner"
  * - US-085: Learning Progress Widget
  * - US-086: Goals Progress Widget
  * - US-087: Profile Completion Banner
+ * - News Feed Widget: Personalized financial news
  */
 export default function DashboardPage() {
   const { user } = useUser()
@@ -46,6 +48,9 @@ export default function DashboardPage() {
 
         {/* Learning Widget - US-085 */}
         <LearningWidget />
+
+        {/* News Feed Widget */}
+        <NewsFeedWidget className="md:col-span-2" />
 
         {/* Goals Widget - US-086 */}
         <GoalsWidget className="md:col-span-2" />

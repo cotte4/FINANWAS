@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import { toast } from "sonner"
 import { ASSET_TYPES } from "@/lib/constants/asset-types"
+import { captureEvent } from '@/lib/analytics/posthog'
 
 interface AddAssetModalProps {
   open: boolean
@@ -108,6 +109,13 @@ export function AddAssetModal({ open, onOpenChange, onSuccess }: AddAssetModalPr
         const data = await response.json()
         throw new Error(data.error || "Error al crear activo")
       }
+
+      captureEvent('asset_added', {
+        asset_type: formData.type,
+        ticker: formData.ticker || undefined,
+        currency: formData.currency,
+        has_ticker: !!formData.ticker,
+      });
 
       toast.success(`${formData.name} agregado al portfolio`)
       resetForm()

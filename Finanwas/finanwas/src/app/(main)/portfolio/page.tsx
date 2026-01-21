@@ -14,6 +14,8 @@ import { EditAssetModal } from "@/components/portfolio/EditAssetModal"
 import { DividendTracker } from "@/components/portfolio/DividendTracker"
 import { PortfolioPerformanceChart } from "@/components/portfolio/PortfolioPerformanceChart"
 import { HealthScoreCard } from "@/components/portfolio/HealthScoreCard"
+import { SwipeableCard } from "@/components/ui/SwipeableCard"
+import { PullToRefresh } from "@/components/ui/PullToRefresh"
 import { getCurrencySymbol } from "@/lib/constants/currency-options"
 import { toast } from "sonner"
 import {
@@ -26,6 +28,7 @@ import {
   Trash2Icon,
 } from "lucide-react"
 import type { PortfolioAsset } from "@/types/database"
+import { captureEvent } from '@/lib/analytics/posthog'
 
 /**
  * Portfolio Page
@@ -78,6 +81,18 @@ export default function PortfolioPage() {
     fetchPortfolio()
   }, [fetchPortfolio])
 
+  // Track portfolio view
+  React.useEffect(() => {
+    if (!isLoading && assets.length > 0) {
+      captureEvent('portfolio_viewed', {
+        asset_count: assets.length,
+        total_value: summary.totalValue,
+        total_gain_loss: summary.totalGainLoss,
+        currency: summary.currency,
+      });
+    }
+  }, [isLoading, assets.length, summary])
+
   const handleRefreshPrices = async () => {
     setIsRefreshing(true)
     try {
@@ -90,10 +105,22 @@ export default function PortfolioPage() {
       }
       const data = await response.json()
       toast.success(data.message || "Precios actualizados correctamente")
+
+      // Track price refresh
+      captureEvent('prices_refreshed', {
+        asset_count: assets.length,
+        success: true,
+      });
+
       // Refresh portfolio data to show updated prices
       fetchPortfolio()
     } catch (error) {
       console.error('Error refreshing prices:', error)
+      captureEvent('prices_refreshed', {
+        asset_count: assets.length,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
       toast.error(error instanceof Error ? error.message : "Error al actualizar precios")
     } finally {
       setIsRefreshing(false)
@@ -104,6 +131,12 @@ export default function PortfolioPage() {
     try {
       const { exportPortfolioCSV } = await import('@/lib/utils/csv-export')
       exportPortfolioCSV(assets)
+
+      captureEvent('data_exported', {
+        export_type: 'CSV',
+        asset_count: assets.length,
+      });
+
       toast.success("Portfolio exportado exitosamente")
     } catch (error) {
       console.error('Error exporting portfolio:', error)
@@ -118,6 +151,7 @@ export default function PortfolioPage() {
 
   const handleDeleteAsset = async (assetId: string, assetName: string) => {
     try {
+      const asset = assets.find(a => a.id === assetId);
       const response = await fetch(`/api/portfolio/${assetId}`, {
         method: 'DELETE',
       })
@@ -125,6 +159,13 @@ export default function PortfolioPage() {
         const data = await response.json()
         throw new Error(data.error || 'Error al eliminar activo')
       }
+
+      captureEvent('asset_deleted', {
+        asset_type: asset?.type,
+        ticker: asset?.ticker,
+        currency: asset?.currency,
+      });
+
       toast.success(`${assetName} eliminado del portfolio`)
       fetchPortfolio() // Refresh the list
     } catch (error) {
@@ -164,7 +205,8 @@ export default function PortfolioPage() {
   }, [] as { name: string; value: number }[])
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
+    <PullToRefresh onRefresh={fetchPortfolio}>
+      <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
       <PageHeader
         title="Mi Portfolio"
         description="Seguimiento de tus inversiones y activos"
@@ -316,7 +358,7 @@ export default function PortfolioPage() {
                     })}
                   </div>
 
-                  {/* Mobile View - Compact Cards */}
+                  {/* Mobile View - Compact Cards with Swipe to Delete */}
                   <div className="md:hidden space-y-3">
                     {assets.map((asset) => {
                       const value = getAssetValue(asset)
@@ -324,69 +366,64 @@ export default function PortfolioPage() {
                       const gainLossPercent = getAssetGainLossPercent(asset)
                       const currentPrice = asset.current_price || asset.purchase_price
                       return (
-                        <div
+                        <SwipeableCard
                           key={asset.id}
-                          className="p-4 rounded-lg border border-border hover:bg-accent transition-colors"
+                          onDelete={() => handleDeleteAsset(asset.id, asset.name)}
+                          deleteLabel="Eliminar"
                         >
-                          <div className="space-y-3">
-                            {/* Header */}
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <Badge variant="secondary" className="text-xs">{asset.type}</Badge>
-                                  {asset.ticker && (
-                                    <span className="font-bold text-sm">{asset.ticker}</span>
-                                  )}
+                          <div className="p-4 rounded-lg border border-border bg-card">
+                            <div className="space-y-3">
+                              {/* Header */}
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Badge variant="secondary" className="text-xs">{asset.type}</Badge>
+                                    {asset.ticker && (
+                                      <span className="font-bold text-sm">{asset.ticker}</span>
+                                    )}
+                                  </div>
+                                  <h3 className="font-semibold text-base truncate">{asset.name}</h3>
                                 </div>
-                                <h3 className="font-semibold text-base truncate">{asset.name}</h3>
+                                <div className="flex items-center gap-1 shrink-0">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon-sm"
+                                    className="min-h-[44px] min-w-[44px]"
+                                    onClick={() => handleEditAsset(asset)}
+                                  >
+                                    <Edit2Icon className="size-4" />
+                                  </Button>
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1 shrink-0">
-                                <Button
-                                  variant="ghost"
-                                  size="icon-sm"
-                                  className="min-h-[44px] min-w-[44px]"
-                                  onClick={() => handleEditAsset(asset)}
-                                >
-                                  <Edit2Icon className="size-4" />
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="icon-sm"
-                                  className="text-destructive min-h-[44px] min-w-[44px]"
-                                  onClick={() => handleDeleteAsset(asset.id, asset.name)}
-                                >
-                                  <Trash2Icon className="size-4" />
-                                </Button>
-                              </div>
-                            </div>
 
-                            {/* Details Grid */}
-                            <div className="grid grid-cols-2 gap-3 text-sm">
-                              <div>
-                                <p className="text-muted-foreground text-xs mb-1">Cantidad</p>
-                                <p className="font-medium">{asset.quantity} unidades</p>
-                              </div>
-                              <div>
-                                <p className="text-muted-foreground text-xs mb-1">Precio Actual</p>
-                                <p className="font-medium">${currentPrice.toLocaleString()} {asset.currency}</p>
-                              </div>
-                              <div>
-                                <p className="text-muted-foreground text-xs mb-1">Valor Total</p>
-                                <p className="font-bold text-base">${value.toLocaleString()}</p>
-                              </div>
-                              <div>
-                                <p className="text-muted-foreground text-xs mb-1">Ganancia/Pérdida</p>
-                                <p className={`font-semibold text-base ${
-                                  gainLoss >= 0 ? "text-success" : "text-destructive"
-                                }`}>
-                                  {gainLoss >= 0 ? "+" : ""}
-                                  ${gainLoss.toLocaleString()}
-                                  <span className="text-xs ml-1">({gainLossPercent.toFixed(2)}%)</span>
-                                </p>
+                              {/* Details Grid */}
+                              <div className="grid grid-cols-2 gap-3 text-sm">
+                                <div>
+                                  <p className="text-muted-foreground text-xs mb-1">Cantidad</p>
+                                  <p className="font-medium">{asset.quantity} unidades</p>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground text-xs mb-1">Precio Actual</p>
+                                  <p className="font-medium">${currentPrice.toLocaleString()} {asset.currency}</p>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground text-xs mb-1">Valor Total</p>
+                                  <p className="font-bold text-base">${value.toLocaleString()}</p>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground text-xs mb-1">Ganancia/Pérdida</p>
+                                  <p className={`font-semibold text-base ${
+                                    gainLoss >= 0 ? "text-success" : "text-destructive"
+                                  }`}>
+                                    {gainLoss >= 0 ? "+" : ""}
+                                    ${gainLoss.toLocaleString()}
+                                    <span className="text-xs ml-1">({gainLossPercent.toFixed(2)}%)</span>
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </SwipeableCard>
                       )
                     })}
                   </div>
@@ -495,6 +532,7 @@ export default function PortfolioPage() {
         }}
         onSuccess={fetchPortfolio}
       />
-    </div>
+      </div>
+    </PullToRefresh>
   )
 }

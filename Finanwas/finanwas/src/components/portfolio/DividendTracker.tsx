@@ -5,6 +5,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
+import { SwipeableCard } from "@/components/ui/SwipeableCard"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { AddDividendModal } from "./AddDividendModal"
 import { toast } from "sonner"
 import {
@@ -44,6 +55,7 @@ export function DividendTracker({ assets, baseCurrency }: DividendTrackerProps) 
   const [isAddModalOpen, setIsAddModalOpen] = React.useState(false)
   const [dividends, setDividends] = React.useState<DividendPayment[]>([])
   const [summary, setSummary] = React.useState<DividendSummary | null>(null)
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState<string | null>(null)
 
   const fetchDividends = React.useCallback(async () => {
     try {
@@ -76,11 +88,16 @@ export function DividendTracker({ assets, baseCurrency }: DividendTrackerProps) 
         throw new Error(data.error || 'Error al eliminar dividendo')
       }
       toast.success('Dividendo eliminado')
+      setShowDeleteDialog(null)
       fetchDividends()
     } catch (error) {
       console.error('Error deleting dividend:', error)
       toast.error(error instanceof Error ? error.message : 'Error al eliminar dividendo')
     }
+  }
+
+  const confirmDeleteDividend = (dividendId: string) => {
+    setShowDeleteDialog(dividendId)
   }
 
   const formatCurrency = (amount: number, currency: string = baseCurrency) => {
@@ -184,50 +201,54 @@ export function DividendTracker({ assets, baseCurrency }: DividendTrackerProps) 
                 {dividends.slice(0, 10).map((dividend) => {
                   const asset = assets.find(a => a.id === dividend.asset_id)
                   return (
-                    <div
+                    <SwipeableCard
                       key={dividend.id}
-                      className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                      onDelete={() => confirmDeleteDividend(dividend.id)}
+                      deleteLabel="Eliminar"
                     >
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className="font-medium">
-                            {asset?.ticker || asset?.name || 'Activo eliminado'}
-                          </p>
-                          <Badge variant="outline">
-                            {getPaymentTypeLabel(dividend.payment_type)}
-                          </Badge>
-                          {dividend.reinvested && (
-                            <Badge variant="secondary">Reinvertido</Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <CalendarIcon className="h-3 w-3" />
-                            {formatDate(dividend.payment_date)}
-                          </span>
-                          <span>{dividend.amount_per_share} {dividend.currency} por acción</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <div className="text-right">
-                          <p className="font-semibold text-green-600 dark:text-green-400">
-                            +{formatCurrency(dividend.total_amount, dividend.currency)}
-                          </p>
-                          {dividend.withholding_tax > 0 && (
-                            <p className="text-xs text-muted-foreground">
-                              Impuesto: -{formatCurrency(dividend.withholding_tax, dividend.currency)}
+                      <div className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-medium">
+                              {asset?.ticker || asset?.name || 'Activo eliminado'}
                             </p>
-                          )}
+                            <Badge variant="outline">
+                              {getPaymentTypeLabel(dividend.payment_type)}
+                            </Badge>
+                            {dividend.reinvested && (
+                              <Badge variant="secondary">Reinvertido</Badge>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <CalendarIcon className="h-3 w-3" />
+                              {formatDate(dividend.payment_date)}
+                            </span>
+                            <span>{dividend.amount_per_share} {dividend.currency} por acción</span>
+                          </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteDividend(dividend.id)}
-                        >
-                          <TrashIcon className="h-4 w-4 text-destructive" />
-                        </Button>
+                        <div className="flex items-center gap-4">
+                          <div className="text-right">
+                            <p className="font-semibold text-green-600 dark:text-green-400">
+                              +{formatCurrency(dividend.total_amount, dividend.currency)}
+                            </p>
+                            {dividend.withholding_tax > 0 && (
+                              <p className="text-xs text-muted-foreground">
+                                Impuesto: -{formatCurrency(dividend.withholding_tax, dividend.currency)}
+                              </p>
+                            )}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="hidden md:inline-flex"
+                            onClick={() => confirmDeleteDividend(dividend.id)}
+                          >
+                            <TrashIcon className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
+                    </SwipeableCard>
                   )
                 })}
               </div>
@@ -277,6 +298,27 @@ export function DividendTracker({ assets, baseCurrency }: DividendTrackerProps) 
         onSuccess={fetchDividends}
         assets={assets}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!showDeleteDialog} onOpenChange={(open) => !open && setShowDeleteDialog(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Eliminar dividendo?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. El dividendo será eliminado permanentemente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => showDeleteDialog && handleDeleteDividend(showDeleteDialog)}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Eliminar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }

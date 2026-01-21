@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { captureEvent, identifyUser } from '@/lib/analytics/posthog';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -47,12 +48,24 @@ export default function LoginPage() {
 
       // Check if 2FA is required
       if (data.requires2FA) {
+        // Track login attempt requiring 2FA
+        captureEvent('user_login_2fa_required', {
+          userId: data.userId,
+        });
         // Redirect to 2FA verification page
         router.push(`/login/verify-2fa?userId=${data.userId}&name=${encodeURIComponent(data.name)}`);
         return;
       }
 
       // Login successful - redirect to dashboard
+      identifyUser(data.userId, {
+        email: data.email || email,
+        name: data.name,
+      });
+
+      captureEvent('user_logged_in', {
+        method: 'password',
+      });
       router.push('/dashboard');
     } catch (err) {
       setError('Error al iniciar sesión. Intentá nuevamente.');
