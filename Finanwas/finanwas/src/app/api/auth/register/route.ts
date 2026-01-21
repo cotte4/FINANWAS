@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
         password_hash: passwordHash,
         name: sanitizedName,
         role: 'user',
-      } as any)
+      })
       .select()
       .single();
 
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
       .update({
         used_at: new Date().toISOString(),
         used_by: newUser.id,
-      } as any)
+      })
       .eq('id', typedCode.id)
       .is('used_at', null) // Only update if still unused (prevents race condition)
       .select()
@@ -174,14 +174,14 @@ export async function POST(request: NextRequest) {
       .from('user_profiles')
       .insert({
         user_id: newUser.id,
-      } as any);
+      });
 
     if (profileError) {
       // Rollback: Delete the user and reset the invitation code
       await supabase.from('users').delete().eq('id', newUser.id);
       await supabase
         .from('invitation_codes')
-        .update({ used_at: null, used_by: null } as any)
+        .update({ used_at: null, used_by: null })
         .eq('id', typedCode.id);
 
       throw profileError;

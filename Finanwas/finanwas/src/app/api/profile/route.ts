@@ -54,9 +54,9 @@ export async function GET(request: NextRequest) {
         .from("user_profiles")
         .insert({
           user_id: payload.userId,
-        } as any)
+        })
         .select()
-        .single() as { data: UserProfile | null; error: any };
+        .single();
 
       if (createError || !newProfile) {
         console.error("Error creating profile:", createError);
@@ -137,10 +137,10 @@ export async function PUT(request: NextRequest) {
     // Update the profile
     const { data: updatedProfile, error } = await supabase
       .from("user_profiles")
-      .update(updateData as any)
+      .update(updateData)
       .eq("user_id", payload.userId)
       .select()
-      .single() as { data: UserProfile | null; error: any };
+      .single();
 
     if (error) {
       console.error("Error updating profile:", error);

@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       .from('users')
       .update({
         last_login: new Date().toISOString(),
-      } as any)
+      })
       .eq('id', user.id);
 
     if (updateError) {

@@ -267,10 +267,13 @@ Based on comprehensive code review of iteration 1/15.
 - **Effort**: Medium
 - **Priority**: Nice-to-have
 
-### **Remove Supabase `as any` Type Assertions**
+### ✅ **Remove Supabase `as any` Type Assertions** - COMPLETED
+**Completed**: 2026-01-21
+**Implementation Notes**: Removed all unsafe `as any` type assertions from the codebase and improved TypeScript type safety. Updated `src/types/database.ts` to include all 11 database tables with proper Row/Insert/Update type definitions including the new error_logs table. Updated `src/lib/db/supabase.ts` to create a typed Supabase client using `createSupabaseClient<Database>()`. Systematically removed `as any` assertions from API routes (auth/register, auth/login, profile), page components (portfolio, perfil, investigar/comparar), and ensured all Supabase queries are now fully type-safe. Application code now has complete type safety without unsafe type assertions, improving code maintainability and catching potential errors at compile time.
+
 - **Description**: Properly type Supabase queries
 - **Rationale**: Better type safety
-- **Implementation**: Generate proper types from Supabase schema
+- **Implementation**: Updated database types and removed all `as any` assertions from application code
 - **Effort**: Low
 - **Priority**: Nice-to-have
 

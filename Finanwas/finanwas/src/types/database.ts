@@ -116,6 +116,25 @@ export interface Note {
   updated_at: string;
 }
 
+// ErrorLog table interface
+export interface ErrorLog {
+  id: string;
+  level: 'error' | 'warning' | 'critical';
+  source: 'client' | 'server' | 'api';
+  message: string;
+  stack_trace: string | null;
+  error_code: string | null;
+  user_id: string | null;
+  url: string | null;
+  user_agent: string | null;
+  ip_address: string | null;
+  metadata: Record<string, any>;
+  resolved: boolean;
+  resolved_at: string | null;
+  resolved_by: string | null;
+  created_at: string;
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -204,6 +223,17 @@ export type Database = {
           updated_at?: string;
         };
         Update: Partial<Omit<Note, 'id'>>;
+      };
+      error_logs: {
+        Row: ErrorLog;
+        Insert: Omit<ErrorLog, 'id' | 'resolved' | 'resolved_at' | 'resolved_by' | 'created_at'> & {
+          id?: string;
+          resolved?: boolean;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Omit<ErrorLog, 'id'>>;
       };
       // Additional tables will be added as they are created in subsequent user stories
     };

@@ -118,9 +118,16 @@ export default function CompararPage() {
     toast.success(`${ticker} removida de la comparación`)
   }, [])
 
-  const metrics = React.useMemo(() => [
-    { key: "price", label: "Precio Actual", format: (v?: number) => v ? `$${v.toFixed(2)}` : "N/A" },
-    { key: "marketCap", label: "Market Cap", format: (v?: string) => v || "N/A" },
+  type MetricDefinition = {
+    key: string
+    label: string
+    hasTrafficLight?: boolean
+    format?: (value: number | string | undefined) => string
+  }
+
+  const metrics = React.useMemo<MetricDefinition[]>(() => [
+    { key: "price", label: "Precio Actual", format: (v) => typeof v === 'number' ? `$${v.toFixed(2)}` : "N/A" },
+    { key: "marketCap", label: "Market Cap", format: (v) => typeof v === 'string' ? v : "N/A" },
     { key: "peRatio", label: "P/E Ratio", hasTrafficLight: true },
     { key: "pbRatio", label: "P/B Ratio", hasTrafficLight: true },
     { key: "roe", label: "ROE", hasTrafficLight: true },
@@ -334,7 +341,7 @@ export default function CompararPage() {
                   </tr>
 
                   {/* Metrics Rows */}
-                  {metrics.map((metric: any) => {
+                  {metrics.map((metric) => {
                     const bestValue = getBestValue(metric.key)
 
                     return (
@@ -372,7 +379,7 @@ export default function CompararPage() {
                                 ) : (
                                   <>
                                     <span className={isBest ? "font-bold text-primary" : ""}>
-                                      {metric.format ? metric.format(value as any) : value}
+                                      {metric.format ? metric.format(value) : value}
                                     </span>
                                     {isBest && companies.length > 1 && (
                                       <Badge variant="default" className="text-xs">
@@ -446,7 +453,7 @@ export default function CompararPage() {
                               <p className={`font-medium text-sm ${isBest ? "text-primary font-bold" : ""}`}>
                                 {metric.hasTrafficLight
                                   ? formatMetric(typeof value === 'number' ? value : undefined, metric.key)
-                                  : (metric.format ? metric.format(value as any) : value)}
+                                  : (metric.format ? metric.format(value) : value)}
                               </p>
                               {metric.hasTrafficLight && (
                                 <TrafficLight

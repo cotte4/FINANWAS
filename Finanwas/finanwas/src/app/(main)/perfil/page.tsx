@@ -26,33 +26,17 @@ import {
   LockIcon,
 } from "lucide-react"
 
+import type { UserProfile } from '@/types/database'
+
 /**
  * Profile Page
  * Display user profile information and questionnaire results
  */
 
-interface ProfileData {
-  id: string
-  user_id: string
-  country: string | null
-  knowledge_level: string | null
-  main_goal: string | null
-  risk_tolerance: string | null
-  has_debt: boolean | null
-  has_emergency_fund: boolean | null
-  has_investments: boolean | null
-  income_range: string | null
-  expense_range: string | null
-  investment_horizon: string | null
-  questionnaire_completed: boolean
-  questionnaire_completed_at: string | null
-  updated_at: string
-}
-
 export default function PerfilPage() {
   const { user } = useUser()
   const [isLoading, setIsLoading] = React.useState(true)
-  const [profile, setProfile] = React.useState<ProfileData | null>(null)
+  const [profile, setProfile] = React.useState<UserProfile | null>(null)
   const [isExporting, setIsExporting] = React.useState(false)
 
   // Fetch user profile from API
@@ -76,7 +60,7 @@ export default function PerfilPage() {
 
   // Calculate investor type
   const investorType = React.useMemo(() =>
-    profile && profile.questionnaire_completed ? calculateInvestorType(profile as any) : null,
+    profile && profile.questionnaire_completed ? calculateInvestorType(profile) : null,
     [profile]
   )
 
@@ -99,8 +83,8 @@ export default function PerfilPage() {
 
   // Format member since date
   const formatMemberSince = React.useCallback(() => {
-    if (!(user as any).created_at) return 'Fecha no disponible'
-    const date = new Date((user as any).created_at)
+    if (!user.created_at) return 'Fecha no disponible'
+    const date = new Date(user.created_at)
     return date.toLocaleDateString('es-AR', { year: 'numeric', month: 'long' })
   }, [user])
 

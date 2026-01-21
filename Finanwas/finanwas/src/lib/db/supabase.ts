@@ -1,9 +1,10 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/database'
 
 /**
  * Creates a Supabase client for server-side usage
  * Uses environment variables for authentication
- * @returns Supabase client instance
+ * @returns Supabase client instance with full type definitions
  */
 export function createClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -17,7 +18,7 @@ export function createClient() {
     throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable')
   }
 
-  return createSupabaseClient(supabaseUrl, supabaseServiceRoleKey, {
+  return createSupabaseClient<Database>(supabaseUrl, supabaseServiceRoleKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,

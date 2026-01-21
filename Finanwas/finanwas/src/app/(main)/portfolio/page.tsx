@@ -21,24 +21,12 @@ import {
   Edit2Icon,
   Trash2Icon,
 } from "lucide-react"
+import type { PortfolioAsset } from "@/types/database"
 
 /**
  * Portfolio Page
  * Asset list, summary cards, and distribution charts
  */
-
-interface PortfolioAsset {
-  id: string
-  type: string
-  ticker: string | null
-  name: string
-  quantity: number
-  purchase_price: number
-  current_price: number | null
-  currency: string
-  purchase_date: string
-  notes: string | null
-}
 
 interface PortfolioSummary {
   totalValue: number
@@ -111,7 +99,7 @@ export default function PortfolioPage() {
   const handleExportCSV = async () => {
     try {
       const { exportPortfolioCSV } = await import('@/lib/utils/csv-export')
-      exportPortfolioCSV(assets as any)
+      exportPortfolioCSV(assets)
       toast.success("Portfolio exportado exitosamente")
     } catch (error) {
       console.error('Error exporting portfolio:', error)
