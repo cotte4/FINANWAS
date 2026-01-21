@@ -68,3 +68,80 @@ Commit: 37544ce
 Next: API Response Caching (Low effort, Should-have)
 
 ---
+Iteration 4 - API Response Caching - COMPLETE
+Implementation:
+- Fixed portfolio refresh to use cached getQuote() instead of direct Yahoo Finance API calls
+- Added 1-hour server-side caching to glossary endpoint (file read optimization)
+- Added 1-hour server-side caching to courses endpoint (file read optimization)
+- Added HTTP Cache-Control headers to all cached endpoints (browser-side caching)
+- Public cache (1 hour) for static content: glossary, courses
+- Private cache for user-specific data: stock quotes (15 min), dollar rates (1 hour)
+- Created comprehensive CACHING.md documentation with cache strategy details
+
+Files changed:
+- src/app/api/portfolio/refresh-prices/route.ts
+- src/app/api/glossary/route.ts
+- src/app/api/courses/route.ts
+- src/app/api/market/dollar/route.ts
+- src/app/api/market/stock/[ticker]/route.ts
+- CACHING.md (new)
+- features_future.md
+
+Commit: fd482c4
+
+Next: Image Optimization & CDN (Low effort, Nice-to-have)
+
+---
+
+Iteration 5 - Image Optimization & CDN - COMPLETE
+Implementation:
+- Configured Next.js image optimization (AVIF/WebP formats, 8 device sizes, 8 icon sizes)
+- Set 1-year cache TTL for static assets
+- Enabled gzip/brotli compression
+- Added remote pattern support for finanwas.com
+- Created automated placeholder PWA icon generation script (SVG-based)
+- Generated placeholder icons: 192x192, 512x512, 180x180, 1200x630 OG image
+- Added npm script `generate-icons` for easy icon regeneration
+- Created comprehensive IMAGE_OPTIMIZATION.md documentation
+- Application is now CDN-ready with optimal image delivery
+
+Files changed:
+- next.config.ts
+- scripts/generate-placeholder-icons.ts (new)
+- package.json
+- public/icon-192.svg (new)
+- public/icon-512.svg (new)
+- public/apple-icon.svg (new)
+- public/og-image.svg (new)
+- public/ICONS-PLACEHOLDER.md (new)
+- IMAGE_OPTIMIZATION.md (new)
+- features_future.md
+
+Commit: a012924
+
+Next: Data Export GDPR (Low effort, Should-have)
+
+---
+
+Iteration 6 - Data Export GDPR Compliance - COMPLETE
+Implementation:
+- Created comprehensive exportUserData() function aggregating data from 9 database tables
+- Exports: users, profiles, portfolio, goals, contributions, progress, tips, notes, invitation codes
+- Built GET /api/user/export-data endpoint with downloadable JSON file
+- Added "Data & Privacy" section to profile page with one-click export
+- Export includes metadata (version, date) and complete user data structure
+- Full GDPR Article 20 and CCPA compliance
+- User-friendly UI with loading states and privacy information
+
+Files changed:
+- src/lib/db/queries/export.ts (new)
+- src/app/api/user/export-data/route.ts (new)
+- src/app/(main)/perfil/page.tsx
+- features_future.md
+
+Commit: 0106d18
+
+Next: Error Tracking & Monitoring (Low effort, Should-have)
+
+---
+
