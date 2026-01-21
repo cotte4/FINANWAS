@@ -76,8 +76,15 @@ export default function ScorecardPage() {
     setCompanyData(null)
 
     try {
-      const ticker = searchQuery.trim().toUpperCase()
-      const response = await fetch(`/api/market/stock/${ticker}`)
+      let ticker = searchQuery.trim().toUpperCase()
+      let response = await fetch(`/api/market/stock/${ticker}`)
+
+      // If not found and doesn't have a suffix, try with .BA (Buenos Aires)
+      if (response.status === 404 && !ticker.includes('.')) {
+        console.log(`Ticker ${ticker} not found, trying ${ticker}.BA`)
+        ticker = `${ticker}.BA`
+        response = await fetch(`/api/market/stock/${ticker}`)
+      }
 
       if (!response.ok) {
         let errorMsg = "Error al obtener datos de la empresa"
@@ -202,7 +209,7 @@ export default function ScorecardPage() {
         <CardHeader>
           <CardTitle>Buscar Empresa</CardTitle>
           <CardDescription>
-            Ingresa el ticker o nombre de la empresa (ej: AAPL, GOOGL, MSFT)
+            Ingresá el ticker de la empresa. Soporta mercados argentinos (YPF, GGAL, PAMP) e internacionales (AAPL, GOOGL, TSLA)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -211,7 +218,7 @@ export default function ScorecardPage() {
               <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Ej: AAPL, Apple"
+                placeholder="Ej: YPF, AAPL, GOOGL"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -221,6 +228,9 @@ export default function ScorecardPage() {
               {isSearching ? "Buscando..." : "Buscar"}
             </Button>
           </form>
+          <p className="text-xs text-muted-foreground mt-2">
+            💡 <strong>Tip:</strong> Podés buscar empresas argentinas (YPF, GGAL, PAMP) o internacionales (AAPL, GOOGL, TSLA). El sistema detecta automáticamente el mercado.
+          </p>
         </CardContent>
       </Card>
 
@@ -233,7 +243,7 @@ export default function ScorecardPage() {
               <div>
                 <p className="font-semibold text-destructive">{error}</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Verifica que el ticker sea correcto (ej: AAPL, GOOGL, MSFT)
+                  Verifica que el ticker sea correcto. Ejemplos válidos: <strong>YPF, GGAL, PAMP</strong> (Argentina) o <strong>AAPL, GOOGL, TSLA</strong> (USA)
                 </p>
               </div>
             </div>
