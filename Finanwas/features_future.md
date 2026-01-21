@@ -22,7 +22,10 @@ Based on comprehensive code review of iteration 1/15.
 - **Effort**: Medium
 - **Priority**: Should-have
 
-### **Dark Mode Support**
+### ✅ **Dark Mode Support** - COMPLETED
+**Completed**: 2026-01-21
+**Implementation Notes**: Added dark mode toggle with system preference detection using next-themes. Dark mode CSS variables were already defined in globals.css. Implemented ThemeProvider wrapping the app, created theme-toggle component with light/dark/system cycle, and added toggle to both desktop UserMenu and mobile header dropdown. All layout components updated with dark mode classes (dark:bg-*, dark:border-*, etc.). Toggle available in user profile menu on both mobile and desktop.
+
 - **Description**: System-wide dark theme toggle
 - **Rationale**: Better user experience for night-time usage
 - **Implementation**: Tailwind dark mode with localStorage persistence

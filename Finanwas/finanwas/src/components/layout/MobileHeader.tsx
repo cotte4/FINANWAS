@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/contexts/UserContext';
 import { useRouter } from 'next/navigation';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -86,7 +87,7 @@ export function MobileHeader() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center justify-between border-b border-gray-200 bg-surface px-4 md:hidden">
+    <header className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-800 bg-surface px-4 md:hidden">
       {/* Hamburger Menu */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
@@ -120,7 +121,7 @@ export function MobileHeader() {
                     'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                     isActive
                       ? 'bg-primary/10 text-primary'
-                      : 'text-text/70 hover:bg-gray-100 hover:text-text'
+                      : 'text-text/70 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text'
                   )}
                 >
                   <Icon className="h-5 w-5" />
@@ -167,6 +168,7 @@ export function MobileHeader() {
               <UserIcon className="mr-2 h-4 w-4" />
               <span>Perfil</span>
             </DropdownMenuItem>
+            <ThemeToggle />
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleLogout}

@@ -12,12 +12,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/contexts/UserContext';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 /**
  * User menu dropdown component
  * Features:
  * - Shows user avatar with initials
- * - Dropdown menu with profile link and logout button
+ * - Dropdown menu with profile link, theme toggle, and logout button
  * - Positioned in sidebar footer on desktop, header on mobile
  */
 export function UserMenu() {
@@ -57,7 +58,7 @@ export function UserMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+      <DropdownMenuTrigger className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
         <Avatar className="h-8 w-8">
           <AvatarFallback className="bg-primary text-white">
             {getInitials(user.name)}
@@ -78,6 +79,7 @@ export function UserMenu() {
           <User className="mr-2 h-4 w-4" />
           <span>Perfil</span>
         </DropdownMenuItem>
+        <ThemeToggle />
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={handleLogout}

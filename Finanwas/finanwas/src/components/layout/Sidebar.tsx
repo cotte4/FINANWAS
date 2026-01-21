@@ -32,7 +32,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 border-r border-gray-200 bg-surface px-4 py-6 flex flex-col">
+    <aside className="fixed left-0 top-0 h-screen w-64 border-r border-gray-200 dark:border-gray-800 bg-surface px-4 py-6 flex flex-col">
       {/* Logo / Brand */}
       <div className="mb-8">
         <Link href="/dashboard">
@@ -55,7 +55,7 @@ export function Sidebar() {
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                 isActive
                   ? 'bg-primary/10 text-primary'
-                  : 'text-text/70 hover:bg-gray-100 hover:text-text'
+                  : 'text-text/70 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-text'
               )}
             >
               <Icon className="h-5 w-5" />
@@ -66,7 +66,7 @@ export function Sidebar() {
       </nav>
 
       {/* User Menu at bottom */}
-      <div className="mt-auto border-t border-gray-200 pt-4">
+      <div className="mt-auto border-t border-gray-200 dark:border-gray-800 pt-4">
         <UserMenu />
       </div>
     </aside>
