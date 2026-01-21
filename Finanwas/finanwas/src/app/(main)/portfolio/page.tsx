@@ -12,6 +12,8 @@ import { EmptyState } from "@/components/ui/empty-state"
 import { AddAssetModal } from "@/components/portfolio/AddAssetModal"
 import { EditAssetModal } from "@/components/portfolio/EditAssetModal"
 import { DividendTracker } from "@/components/portfolio/DividendTracker"
+import { PortfolioPerformanceChart } from "@/components/portfolio/PortfolioPerformanceChart"
+import { HealthScoreCard } from "@/components/portfolio/HealthScoreCard"
 import { getCurrencySymbol } from "@/lib/constants/currency-options"
 import { toast } from "sonner"
 import {
@@ -219,6 +221,11 @@ export default function PortfolioPage() {
           isLoading={isLoading}
         />
       </div>
+
+      {/* Portfolio Health Score */}
+      {assets.length > 0 && (
+        <HealthScoreCard />
+      )}
 
       <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
         {/* Asset List */}
@@ -457,6 +464,14 @@ export default function PortfolioPage() {
           </Card>
         </div>
       </div>
+
+      {/* Portfolio Performance Chart */}
+      {assets.length > 0 && (
+        <PortfolioPerformanceChart
+          baseCurrency={summary.currency}
+          onSnapshotCreated={fetchPortfolio}
+        />
+      )}
 
       {/* Dividend Tracking */}
       {assets.length > 0 && (

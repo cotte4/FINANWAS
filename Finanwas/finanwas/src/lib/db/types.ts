@@ -414,6 +414,52 @@ export interface Database {
           created_at?: string | null;
         };
       };
+
+      /**
+       * Comprehensive audit trail of all user and system actions
+       * Migration: 017_audit_log.sql
+       */
+      audit_logs: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          action: string;
+          category: 'authentication' | 'portfolio' | 'settings' | 'export' | 'admin' | 'goal' | 'data';
+          resource_type: string | null;
+          resource_id: string | null;
+          metadata: Record<string, any> | null;
+          ip_address: string | null;
+          user_agent: string | null;
+          status: 'success' | 'failure' | 'pending';
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          action: string;
+          category: 'authentication' | 'portfolio' | 'settings' | 'export' | 'admin' | 'goal' | 'data';
+          resource_type?: string | null;
+          resource_id?: string | null;
+          metadata?: Record<string, any> | null;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          status?: 'success' | 'failure' | 'pending';
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          action?: string;
+          category?: 'authentication' | 'portfolio' | 'settings' | 'export' | 'admin' | 'goal' | 'data';
+          resource_type?: string | null;
+          resource_id?: string | null;
+          metadata?: Record<string, any> | null;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          status?: 'success' | 'failure' | 'pending';
+          created_at?: string;
+        };
+      };
     };
   };
 }

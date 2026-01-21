@@ -111,6 +111,20 @@ export interface DividendPayment {
   updated_at: string;
 }
 
+// PortfolioPerformanceSnapshot table interface
+export interface PortfolioPerformanceSnapshot {
+  id: string;
+  user_id: string;
+  snapshot_date: string;
+  total_value: number;
+  total_cost: number;
+  total_gain_loss: number;
+  gain_loss_percentage: number;
+  currency: string;
+  asset_breakdown: Record<string, { count: number; value: number; cost: number }> | null;
+  created_at: string;
+}
+
 // SavingsGoal table interface
 export interface SavingsGoal {
   id: string;
@@ -290,6 +304,14 @@ export type Database = {
           updated_at?: string;
         };
         Update: Partial<Omit<DividendPayment, 'id'>>;
+      };
+      portfolio_performance_snapshots: {
+        Row: PortfolioPerformanceSnapshot;
+        Insert: Omit<PortfolioPerformanceSnapshot, 'id' | 'created_at'> & {
+          id?: string;
+          created_at?: string;
+        };
+        Update: Partial<Omit<PortfolioPerformanceSnapshot, 'id'>>;
       };
       // Additional tables will be added as they are created in subsequent user stories
     };

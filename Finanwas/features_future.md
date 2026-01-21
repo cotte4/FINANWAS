@@ -1,6 +1,6 @@
 # Future Feature Ideas for Finanwas
 
-Last Updated: 2026-01-20
+Last Updated: 2026-01-21
 
 Based on comprehensive code review of iteration 1/15.
 
@@ -189,10 +189,20 @@ Based on comprehensive code review of iteration 1/15.
 
 ## User Engagement
 
+### ✅ **Learning Progress Tracking** - COMPLETED
+**Completed**: 2026-01-21
+**Implementation Notes**: Comprehensive learning analytics system implemented for the aprender section. Created database migration 015 adding time tracking fields: started_at, time_spent_seconds, last_accessed_at, view_count, progress_percentage. Built custom useLessonTracking hook with automatic time tracking (updates every second, syncs every 30 seconds), scroll-based reading progress monitoring, and auto-save on page unload using navigator.sendBeacon. Created 4 new API endpoints: POST /api/progress/start (register lesson start), POST /api/progress/time (update time spent), POST /api/progress/reading (update reading progress), GET /api/progress/stats (learning statistics). Enhanced lesson pages with real-time time counter display and visual reading progress bar. Implemented learning statistics with streak calculation: getLearningStats() returns lessons completed, total time, current streak, longest streak, and average progress. Created LearningStatsWidget component for dashboard showing completed lessons, total time, current/longest streaks with visual indicators. System tracks user engagement, learning velocity, and provides foundation for gamification features.
+
+- **Description**: Track time spent, reading progress, and learning streaks for aprender section
+- **Rationale**: Understand learning behavior, motivate users with progress metrics
+- **Implementation**: Time tracking, scroll progress, streak calculation, statistics dashboard
+- **Effort**: Medium
+- **Priority**: Should-have
+
 ### **Gamification System**
 - **Description**: Badges, streaks, levels for completing lessons and reaching goals
 - **Rationale**: Increases user retention and engagement
-- **Implementation**: Achievement system with rewards
+- **Implementation**: Achievement system with rewards (builds on Learning Progress Tracking)
 - **Effort**: High
 - **Priority**: Nice-to-have
 
