@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd finanwas && npm run build",
+  "devCommand": "cd finanwas && npm run dev",
+  "installCommand": "cd finanwas && npm install",
+  "framework": "nextjs",
+  "outputDirectory": "finanwas/.next"
+}
