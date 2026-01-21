@@ -36,7 +36,7 @@ async function getCurrentUser() {
       .from('users')
       .select('id, email, name, role, created_at')
       .eq('id', payload.userId)
-      .single();
+      .single() as { data: { id: string; email: string; name: string; role: string; created_at: string } | null; error: any };
 
     if (error || !user) {
       redirect('/login');
@@ -47,7 +47,7 @@ async function getCurrentUser() {
       .from('user_profiles')
       .select('questionnaire_completed, risk_tolerance')
       .eq('user_id', payload.userId)
-      .single();
+      .single() as { data: { questionnaire_completed: boolean; risk_tolerance: string | null } | null; error: any };
 
     // Determine investor type from risk_tolerance
     let investorType: 'conservador' | 'moderado' | 'agresivo' | null = null;

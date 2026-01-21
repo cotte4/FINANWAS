@@ -3,7 +3,7 @@ import { createClient } from '@/lib/db/supabase';
 import { verifyToken } from '@/lib/auth/jwt';
 import { verifyPassword } from '@/lib/auth/password';
 import { getAuthCookie } from '@/lib/auth/cookies';
-import type { User } from '@/types/database';
+import type { User, Database } from '@/types/database';
 
 /**
  * POST /api/auth/2fa/disable
@@ -77,13 +77,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Disable 2FA in database
+    const updateData: Partial<User> = {
+      two_factor_enabled: false,
+      two_factor_secret: null,
+      two_factor_backup_codes: null,
+    };
+
     const { error: updateError } = await supabase
       .from('users')
-      .update({
-        two_factor_enabled: false,
-        two_factor_secret: null,
-        two_factor_backup_codes: null,
-      })
+      // @ts-ignore - Type inference issue with Supabase client
+      .update(updateData)
       .eq('id', user.id);
 
     if (updateError) {

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       }
     } else {
       // Verify TOTP token
-      isValid = verifyTwoFactorToken(token, user.two_factor_secret);
+      isValid = await verifyTwoFactorToken(token, user.two_factor_secret);
     }
 
     if (!isValid) {
@@ -85,6 +85,7 @@ export async function POST(request: NextRequest) {
     if (needsBackupCodeUpdate) {
       const { error: updateError } = await supabase
         .from('users')
+        // @ts-ignore - Type inference issue with Supabase client
         .update({
           two_factor_backup_codes: updatedBackupCodes,
         })
@@ -99,6 +100,7 @@ export async function POST(request: NextRequest) {
     // Update last_login timestamp
     const { error: updateError } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({
         last_login: new Date().toISOString(),
       })

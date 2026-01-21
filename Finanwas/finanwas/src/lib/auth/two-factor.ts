@@ -3,16 +3,19 @@
  * TOTP-based 2FA using authenticator apps (Google Authenticator, Authy, etc.)
  */
 
-import { authenticator } from 'otplib';
+import { TOTP } from '@otplib/totp';
+import { generateSecret, verify } from 'otplib';
 import QRCode from 'qrcode';
 import { hashPassword, verifyPassword } from './password';
+
+const totp = new TOTP();
 
 /**
  * Generate a new TOTP secret for 2FA
  * Returns a base32-encoded secret that can be stored in the database
  */
 export function generateTwoFactorSecret(): string {
-  return authenticator.generateSecret();
+  return generateSecret();
 }
 
 /**
@@ -25,7 +28,7 @@ export function generateTwoFactorSecret(): string {
  */
 export async function generateQRCode(email: string, secret: string): Promise<string> {
   const appName = 'Finanwas';
-  const otpauth = authenticator.keyuri(email, appName, secret);
+  const otpauth = `otpauth://totp/${encodeURIComponent(appName)}:${encodeURIComponent(email)}?secret=${secret}&issuer=${encodeURIComponent(appName)}`;
 
   return await QRCode.toDataURL(otpauth);
 }
@@ -37,9 +40,11 @@ export async function generateQRCode(email: string, secret: string): Promise<str
  * @param secret - TOTP secret (base32-encoded)
  * @returns true if code is valid
  */
-export function verifyTwoFactorToken(token: string, secret: string): boolean {
+export async function verifyTwoFactorToken(token: string, secret: string): Promise<boolean> {
   try {
-    return authenticator.verify({ token, secret });
+    // Use the functional verify API from otplib
+    const result = await verify({ token, secret });
+    return result !== null;
   } catch (error) {
     console.error('2FA verification error:', error);
     return false;

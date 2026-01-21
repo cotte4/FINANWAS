@@ -247,3 +247,103 @@ Next: Two-Factor Authentication (Medium effort, Should-have)
 
 ---
 
+Iteration 10 - Two-Factor Authentication (2FA) - COMPLETE
+Implementation:
+- Created comprehensive TOTP-based 2FA system using otplib and qrcode libraries
+- Built complete 2FA utilities in src/lib/auth/two-factor.ts:
+  * generateTwoFactorSecret() - Creates TOTP secrets
+  * generateQRCode() - Generates QR codes for authenticator apps
+  * verifyTwoFactorToken() - Validates TOTP codes
+  * generateBackupCodes() - Creates 8 recovery codes per user
+  * hashBackupCodes() - Bcrypt hashing for secure storage
+  * verifyBackupCode() - Validates recovery codes
+  * removeBackupCode() - Removes used backup codes
+- Implemented 4 API endpoints for complete 2FA lifecycle:
+  * POST /api/auth/2fa/setup - Generate secret and QR code
+  * POST /api/auth/2fa/enable - Verify and enable 2FA
+  * POST /api/auth/2fa/disable - Password-protected disable
+  * POST /api/auth/2fa/verify - Login verification (TOTP + backup codes)
+- Created GET /api/user/me endpoint for retrieving user details with 2FA status
+- Built TwoFactorSettings component with 3-stage setup flow:
+  * Initial state (enable/disable button)
+  * QR code display and TOTP verification
+  * One-time backup codes display with copy functionality
+- Created verify-2FA login page (src/app/(auth)/login/verify-2fa/page.tsx):
+  * Tab interface for TOTP vs backup codes
+  * Auto-redirect to dashboard on success
+  * Warning messages for low backup code counts
+- Updated login API to detect 2FA-enabled users and redirect to verification
+- Updated login page to handle requires2FA response
+- Created migration 013 adding 3 columns to users table:
+  * two_factor_enabled (boolean)
+  * two_factor_secret (base32-encoded TOTP secret)
+  * two_factor_backup_codes (array of bcrypt-hashed codes)
+- Integrated TwoFactorSettings into profile page Security & Privacy section
+- Security features:
+  * Password verification required to disable 2FA
+  * Backup codes shown only once during setup
+  * Used backup codes automatically removed
+  * Warnings when < 3 backup codes remain
+- Created comprehensive TWO_FACTOR_AUTHENTICATION.md documentation
+- Compatible with all major authenticator apps (Google Authenticator, Authy, etc.)
+
+Files changed:
+- src/lib/auth/two-factor.ts (new)
+- src/lib/db/migrations/013_two_factor_authentication.sql (new)
+- src/app/api/auth/2fa/setup/route.ts (new)
+- src/app/api/auth/2fa/enable/route.ts (new)
+- src/app/api/auth/2fa/disable/route.ts (new)
+- src/app/api/auth/2fa/verify/route.ts (new)
+- src/app/api/user/me/route.ts (new)
+- src/components/auth/TwoFactorSettings.tsx (new)
+- src/app/(auth)/login/verify-2fa/page.tsx (new)
+- src/app/api/auth/login/route.ts
+- src/app/(auth)/login/page.tsx
+- src/app/(main)/perfil/page.tsx
+- src/types/database.ts
+- package.json (otplib, qrcode dependencies)
+- package-lock.json
+- TWO_FACTOR_AUTHENTICATION.md (new)
+- features_future.md
+
+Commit: dcd7d63
+
+Next: Dividend Tracking (Medium effort, Should-have)
+
+---
+
+Iteration 11 - Dividend Tracking - COMPLETE
+Implementation:
+- Created dividend_payments table with support for cash, stock, and DRIP payment types
+- Extended portfolio_assets table with dividend_yield, dividend_frequency, next_dividend_date, last_dividend_amount
+- Built comprehensive dividend query utilities (getUserDividends, createDividend, updateDividend, deleteDividend, getDividendSummary, getDividendIncomeForPeriod)
+- Created GET/POST /api/dividends endpoint for listing and creating dividend records
+- Created GET/PATCH/DELETE /api/dividends/:id endpoint for individual dividend operations
+- Built AddDividendModal component with auto-calculation, validation, and support for all payment types
+- Created DividendTracker component with summary statistics, recent dividends list, and dividends by asset
+- Integrated dividend tracking into portfolio page (appears when user has assets)
+- Summary statistics: total historical, YTD, last year, average per payment, total reinvested, total withholding tax
+- Analytics: dividends by asset, dividends by month, payment counts, last payment dates
+- Features: withholding tax tracking, reinvestment status, shares received for DRIP/stock dividends
+- Created comprehensive DIVIDEND_TRACKING.md documentation with usage guide, API reference, and best practices
+- Updated database types (DividendPayment interface and Database types)
+- Added database indexes for efficient dividend queries
+
+Files changed:
+- src/lib/db/migrations/014_dividend_tracking.sql (new)
+- src/types/database.ts
+- src/lib/db/queries/dividends.ts (new)
+- src/app/api/dividends/route.ts (new)
+- src/app/api/dividends/[id]/route.ts (new)
+- src/components/portfolio/AddDividendModal.tsx (new)
+- src/components/portfolio/DividendTracker.tsx (new)
+- src/app/(main)/portfolio/page.tsx
+- DIVIDEND_TRACKING.md (new)
+- features_future.md
+
+Commit: 7a8b9dd
+
+Next: Portfolio Performance Charts (Medium effort, Should-have)
+
+---
+

@@ -38,7 +38,7 @@ async function getCurrentAdmin() {
       .from('users')
       .select('id, email, name, role')
       .eq('id', payload.userId)
-      .single();
+      .single() as { data: { id: string; email: string; name: string; role: string } | null; error: any };
 
     if (error || !user || user.role !== 'admin') {
       redirect('/dashboard');

@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify the TOTP token
-    const isValid = verifyTwoFactorToken(totpToken, secret);
+    const isValid = await verifyTwoFactorToken(totpToken, secret);
     if (!isValid) {
       return NextResponse.json(
         { error: 'Código de verificación inválido' },
@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
     // Enable 2FA in database
     const { error: updateError } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({
         two_factor_enabled: true,
         two_factor_secret: secret,

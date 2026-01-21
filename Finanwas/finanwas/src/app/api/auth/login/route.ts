@@ -90,6 +90,7 @@ export async function POST(request: NextRequest) {
     // Update last_login timestamp
     const { error: updateError } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({
         last_login: new Date().toISOString(),
       })

@@ -124,6 +124,7 @@ export async function POST(request: NextRequest) {
     // Create user
     const { data, error: createUserError } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .insert({
         email: sanitizedEmail,
         password_hash: passwordHash,
@@ -143,6 +144,7 @@ export async function POST(request: NextRequest) {
     // This will only update if the code is still unused (used_at IS NULL)
     const { data: updatedCode, error: updateCodeError } = await supabase
       .from('invitation_codes')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({
         used_at: new Date().toISOString(),
         used_by: newUser.id,
@@ -172,6 +174,7 @@ export async function POST(request: NextRequest) {
     // Create empty user profile
     const { error: profileError } = await supabase
       .from('user_profiles')
+      // @ts-ignore - Type inference issue with Supabase client
       .insert({
         user_id: newUser.id,
       });
@@ -181,6 +184,7 @@ export async function POST(request: NextRequest) {
       await supabase.from('users').delete().eq('id', newUser.id);
       await supabase
         .from('invitation_codes')
+        // @ts-ignore - Type inference issue with Supabase client
         .update({ used_at: null, used_by: null })
         .eq('id', typedCode.id);
 

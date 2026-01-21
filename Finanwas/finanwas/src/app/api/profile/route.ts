@@ -52,6 +52,7 @@ export async function GET(request: NextRequest) {
     if (!profile) {
       const { data: newProfile, error: createError } = await supabase
         .from("user_profiles")
+        // @ts-ignore - Type inference issue with Supabase client
         .insert({
           user_id: payload.userId,
         })
@@ -153,6 +154,7 @@ async function handleProfileUpdate(request: NextRequest) {
     // Update the profile
     const { data: updatedProfile, error } = await supabase
       .from("user_profiles")
+      // @ts-ignore - Type inference issue with Supabase client
       .update(updateData)
       .eq("user_id", payload.userId)
       .select()

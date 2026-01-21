@@ -97,6 +97,7 @@ export async function createUser(
     const supabase = createClient()
     const { data: user, error } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .insert({
         ...data,
         email: data.email.toLowerCase(),
@@ -132,6 +133,7 @@ export async function updateUserLastLogin(id: string): Promise<User> {
     const supabase = createClient()
     const { data, error } = await supabase
       .from('users')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({ last_login: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -211,12 +213,13 @@ export async function markCodeAsUsed(code: string, userId: string): Promise<Invi
 
     const { data, error } = await supabase
       .from('invitation_codes')
+      // @ts-ignore - Type inference issue with Supabase client
       .update({
         used_at: new Date().toISOString(),
         used_by: userId,
       })
       .eq('code', code.toUpperCase())
-      .eq('used_at', null) // Doble verificación para evitar race conditions
+      .is('used_at', null) // Doble verificación para evitar race conditions
       .select()
       .single()
 

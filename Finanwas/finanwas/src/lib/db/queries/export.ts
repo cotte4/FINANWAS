@@ -23,15 +23,15 @@ export interface UserDataExport {
   };
   profile: {
     country: string | null;
-    knowledgeLevel: string;
-    mainGoal: string;
-    riskTolerance: string;
-    hasDe bt: boolean | null;
+    knowledgeLevel: string | null;
+    mainGoal: string | null;
+    riskTolerance: string | null;
+    hasDebt: boolean | null;
     hasEmergencyFund: boolean | null;
     hasInvestments: boolean | null;
     incomeRange: string | null;
     expenseRange: string | null;
-    investmentHorizon: string;
+    investmentHorizon: string | null;
     questionnaireCompleted: boolean;
     questionnaireCompletedAt: string | null;
     updatedAt: string;
@@ -104,7 +104,7 @@ export interface UserDataExport {
     codes: Array<{
       code: string;
       createdAt: string;
-      usedAt: string;
+      usedAt: string | null;
     }>;
   };
 }
@@ -163,7 +163,7 @@ export async function exportUserData(userId: string): Promise<UserDataExport> {
     const { data: invitationCodes } = await supabase
       .from('invitation_codes')
       .select('code, created_at, used_at')
-      .eq('used_by', userId);
+      .eq('used_by', userId) as { data: { code: string; created_at: string; used_at: string | null }[] | null };
 
     // Build the complete export
     const exportData: UserDataExport = {
@@ -200,11 +200,11 @@ export async function exportUserData(userId: string): Promise<UserDataExport> {
           type: asset.type,
           ticker: asset.ticker,
           name: asset.name,
-          quantity: parseFloat(asset.quantity),
-          purchasePrice: parseFloat(asset.purchase_price),
+          quantity: asset.quantity as number,
+          purchasePrice: asset.purchase_price as number,
           purchaseDate: asset.purchase_date,
           currency: asset.currency,
-          currentPrice: asset.current_price ? parseFloat(asset.current_price) : null,
+          currentPrice: asset.current_price as number | null,
           currentPriceUpdatedAt: asset.current_price_updated_at,
           priceSource: asset.price_source,
           notes: asset.notes,
@@ -216,8 +216,8 @@ export async function exportUserData(userId: string): Promise<UserDataExport> {
         goals: goalsWithContributions.map((goal) => ({
           id: goal.id,
           name: goal.name,
-          targetAmount: parseFloat(goal.target_amount),
-          currentAmount: parseFloat(goal.current_amount),
+          targetAmount: Number(goal.target_amount),
+          currentAmount: Number(goal.current_amount),
           currency: goal.currency,
           targetDate: goal.target_date,
           createdAt: goal.created_at,
@@ -225,7 +225,7 @@ export async function exportUserData(userId: string): Promise<UserDataExport> {
           completedAt: goal.completed_at,
           contributions: goal.contributions.map((contrib: any) => ({
             id: contrib.id,
-            amount: parseFloat(contrib.amount),
+            amount: Number(contrib.amount),
             date: contrib.date,
             notes: contrib.notes,
             createdAt: contrib.created_at,

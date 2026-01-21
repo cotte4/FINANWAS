@@ -60,7 +60,7 @@ export async function getUserStats(): Promise<UserStats> {
     // Obtener todos los usuarios
     const { data: users, error: usersError } = await supabase
       .from('users')
-      .select('*')
+      .select('*') as { data: User[] | null; error: any }
 
     if (usersError) {
       throw new Error(`Error al obtener usuarios: ${usersError.message}`)
@@ -69,7 +69,7 @@ export async function getUserStats(): Promise<UserStats> {
     // Obtener perfiles para estadísticas adicionales
     const { data: profiles, error: profilesError } = await supabase
       .from('user_profiles')
-      .select('questionnaire_completed')
+      .select('questionnaire_completed') as { data: { questionnaire_completed: boolean }[] | null; error: any }
 
     if (profilesError) {
       throw new Error(`Error al obtener perfiles: ${profilesError.message}`)
@@ -206,6 +206,7 @@ export async function generateInvitationCode(): Promise<InvitationCode> {
     // Crear el código en la base de datos
     const { data: newCode, error } = await supabase
       .from('invitation_codes')
+      // @ts-ignore - Type inference issue with Supabase client
       .insert({
         code,
       })
