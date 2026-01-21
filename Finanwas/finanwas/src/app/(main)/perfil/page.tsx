@@ -22,6 +22,8 @@ import {
   RocketIcon,
   ScaleIcon,
   CalendarIcon,
+  DownloadIcon,
+  LockIcon,
 } from "lucide-react"
 
 /**
@@ -51,6 +53,7 @@ export default function PerfilPage() {
   const { user } = useUser()
   const [isLoading, setIsLoading] = React.useState(true)
   const [profile, setProfile] = React.useState<ProfileData | null>(null)
+  const [isExporting, setIsExporting] = React.useState(false)
 
   // Fetch user profile from API
   React.useEffect(() => {
@@ -100,6 +103,41 @@ export default function PerfilPage() {
     const date = new Date((user as any).created_at)
     return date.toLocaleDateString('es-AR', { year: 'numeric', month: 'long' })
   }, [user])
+
+  // Export user data (GDPR compliance)
+  const handleExportData = React.useCallback(async () => {
+    try {
+      setIsExporting(true)
+      const response = await fetch('/api/user/export-data')
+
+      if (!response.ok) {
+        throw new Error('Error al exportar datos')
+      }
+
+      // Get the blob and filename from response
+      const blob = await response.blob()
+      const contentDisposition = response.headers.get('Content-Disposition')
+      const filenameMatch = contentDisposition?.match(/filename="(.+)"/)
+      const filename = filenameMatch ? filenameMatch[1] : `finanwas-data-export-${new Date().toISOString().split('T')[0]}.json`
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = filename
+      document.body.appendChild(link)
+      link.click()
+
+      // Cleanup
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Error exporting data:', error)
+      alert('Error al exportar tus datos. Por favor, intentá nuevamente.')
+    } finally {
+      setIsExporting(false)
+    }
+  }, [])
 
   const profileSections = React.useMemo(() => [
     {
@@ -347,6 +385,53 @@ export default function PerfilPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Data & Privacy Section */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <LockIcon className="size-5 text-primary" />
+            <CardTitle>Datos y Privacidad</CardTitle>
+          </div>
+          <CardDescription>
+            Administrá tus datos personales y ejercé tus derechos de privacidad
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-start justify-between p-4 rounded-lg border border-border bg-muted/50">
+            <div className="flex-1">
+              <h3 className="font-semibold mb-1">Exportar mis datos</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Descargá una copia completa de todos tus datos en formato JSON. Incluye tu perfil,
+                portafolio, metas, notas, progreso en cursos y más.
+              </p>
+              <p className="text-xs text-muted-foreground mb-4">
+                Esta funcionalidad cumple con las regulaciones de protección de datos (GDPR, CCPA).
+                Tus datos se exportan en un formato legible y portable.
+              </p>
+              <Button
+                onClick={handleExportData}
+                disabled={isExporting}
+                variant="outline"
+                className="gap-2"
+              >
+                <DownloadIcon className="size-4" />
+                {isExporting ? 'Exportando...' : 'Exportar Datos'}
+              </Button>
+            </div>
+          </div>
+
+          <div className="text-xs text-muted-foreground p-4 bg-muted/30 rounded-lg">
+            <p className="font-semibold mb-2">Acerca de tus datos:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Tus datos están encriptados y almacenados de forma segura</li>
+              <li>Solo vos tenés acceso a tu información personal</li>
+              <li>Nunca compartimos tus datos sin tu consentimiento</li>
+              <li>Podés exportar o eliminar tus datos en cualquier momento</li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
