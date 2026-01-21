@@ -179,3 +179,33 @@ Next: Remove Supabase type assertions (Low effort, Nice-to-have)
 
 ---
 
+Iteration 8 - Remove Supabase Type Assertions - COMPLETE
+Implementation:
+- Updated src/types/database.ts to include all 11 database tables
+- Added ErrorLog interface for error_logs table from migration 011
+- Defined Row, Insert, and Update types for all tables with proper optional fields
+- Updated src/lib/db/supabase.ts to create typed client: createSupabaseClient<Database>()
+- Generated comprehensive types in src/lib/db/types.ts (by Task agent, alternative implementation)
+- Removed all `as any` assertions from API routes (auth/register, auth/login, profile)
+- Removed all `as any` assertions from page components (portfolio, perfil, investigar/comparar)
+- Application now has complete type safety for all Supabase queries
+- Improved IDE autocomplete, compile-time error detection, and code maintainability
+
+Files changed:
+- src/types/database.ts
+- src/lib/db/supabase.ts
+- src/lib/db/types.ts (new, comprehensive type definitions)
+- src/app/api/auth/register/route.ts
+- src/app/api/auth/login/route.ts
+- src/app/api/profile/route.ts
+- src/app/(main)/portfolio/page.tsx
+- src/app/(main)/perfil/page.tsx
+- src/app/(main)/investigar/comparar/page.tsx
+- features_future.md
+
+Commit: 0a0b5cb
+
+Next: Multi-Currency Support (Medium effort, Should-have)
+
+---
+
