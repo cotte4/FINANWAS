@@ -209,3 +209,41 @@ Next: Multi-Currency Support (Medium effort, Should-have)
 
 ---
 
+Iteration 9 - Multi-Currency Support with Auto-Conversion - COMPLETE
+Implementation:
+- Created database migration 012 for preferred_currency field in user_profiles
+- Built comprehensive exchange rate service using exchangerate-api.com (free tier)
+- Implemented currency conversion utilities (convertCurrency, convertMultipleCurrencies)
+- Added 1-hour server-side caching + HTTP Cache-Control headers for exchange rates
+- Supports 10 major currencies: ARS, USD, EUR, BRL, GBP, JPY, CAD, CHF, CNY, MXN
+- Created GET /api/market/exchange-rates endpoint with query params for conversions
+- Updated portfolio summary calculations to convert all assets to base currency
+- Modified getPortfolioSummary() to accept baseCurrency parameter
+- Created user-preferences.ts queries for getting/updating preferred currency
+- Added currency preference UI to profile page with visual currency selector
+- Updated portfolio page to display values in preferred currency with proper symbols
+- Modified profile API to support PATCH method for partial updates
+- Added preferred_currency field to database types (UserProfile interface)
+- Created comprehensive MULTI_CURRENCY.md documentation
+- All features production-ready with fallback strategies for API failures
+
+Files changed:
+- src/lib/db/migrations/012_multi_currency_support.sql (new)
+- src/lib/services/exchange-rates.ts (new)
+- src/app/api/market/exchange-rates/route.ts (new)
+- src/lib/db/queries/user-preferences.ts (new)
+- src/lib/db/queries/portfolio.ts
+- src/types/database.ts
+- src/app/api/profile/route.ts
+- src/app/api/portfolio/route.ts
+- src/app/(main)/perfil/page.tsx
+- src/app/(main)/portfolio/page.tsx
+- MULTI_CURRENCY.md (new)
+- features_future.md
+
+Commit: fde622d
+
+Next: Two-Factor Authentication (Medium effort, Should-have)
+
+---
+
