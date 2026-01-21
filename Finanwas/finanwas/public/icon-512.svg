@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#000000" rx="51.2"/>
+  <text
+    x="50%"
+    y="50%"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="204"
+    font-weight="700"
+    fill="#ffffff"
+  >F</text>
+  <circle cx="435.2" cy="76.8" r="40.96" fill="#10b981"/>
+</svg>
