@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ErrorTrackingProvider } from "@/components/providers/ErrorTrackingProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -128,6 +129,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ErrorTrackingProvider />
           {children}
           <Toaster />
         </ThemeProvider>

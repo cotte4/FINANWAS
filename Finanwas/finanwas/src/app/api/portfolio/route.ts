@@ -3,12 +3,15 @@ import { getAuthCookie } from '@/lib/auth/cookies';
 import { verifyToken } from '@/lib/auth/jwt';
 import { getUserAssets, createAsset, getPortfolioSummary } from '@/lib/db/queries/portfolio';
 import { sanitizeString, sanitizeTicker, sanitizeNumber } from '@/lib/utils/sanitize';
+import { logApiError } from '@/lib/monitoring/logger';
 
 /**
  * GET /api/portfolio
  * Returns all portfolio assets for the authenticated user with summary
  */
 export async function GET(request: NextRequest) {
+  let userId: string | undefined;
+
   try {
     // Get and verify auth token
     const token = await getAuthCookie();
@@ -26,6 +29,8 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       );
     }
+
+    userId = payload.userId;
 
     // Get user assets and summary
     const assets = await getUserAssets(payload.userId);
@@ -43,6 +48,15 @@ export async function GET(request: NextRequest) {
     }, { status: 200 });
   } catch (error) {
     console.error('Error in GET /api/portfolio:', error);
+
+    // Log error to monitoring system
+    await logApiError(error, {
+      endpoint: '/api/portfolio',
+      method: 'GET',
+      userId,
+      statusCode: 500,
+    });
+
     return NextResponse.json(
       { error: 'Error al obtener activos del portafolio' },
       { status: 500 }
@@ -55,6 +69,9 @@ export async function GET(request: NextRequest) {
  * Creates a new portfolio asset for the authenticated user
  */
 export async function POST(request: NextRequest) {
+  let userId: string | undefined;
+  let requestBody: any;
+
   try {
     // Get and verify auth token
     const token = await getAuthCookie();
@@ -73,8 +90,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    userId = payload.userId;
+
     // Parse request body
     const body = await request.json();
+    requestBody = body;
     const { type, ticker, name, quantity, purchase_price, purchase_date, currency, notes } = body;
 
     // Validate required fields
@@ -125,6 +145,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ asset }, { status: 201 });
   } catch (error) {
     console.error('Error in POST /api/portfolio:', error);
+
+    // Log error to monitoring system
+    await logApiError(error, {
+      endpoint: '/api/portfolio',
+      method: 'POST',
+      userId,
+      requestData: requestBody,
+      statusCode: 500,
+    });
+
     return NextResponse.json(
       { error: 'Error al crear activo en portafolio' },
       { status: 500 }

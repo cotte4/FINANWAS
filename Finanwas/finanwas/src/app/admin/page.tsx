@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/useToast';
-import { UsersIcon, UserPlusIcon, CheckCircleIcon, ArrowRightIcon } from 'lucide-react';
+import { UsersIcon, UserPlusIcon, CheckCircleIcon, ArrowRightIcon, AlertTriangleIcon } from 'lucide-react';
 
 interface User {
   id: string;
@@ -91,12 +91,20 @@ export default function AdminUsersPage() {
         title="Gestión de Usuarios"
         description="Visualiza y administra todos los usuarios de la plataforma"
         action={
-          <Button asChild>
-            <Link href="/admin/invitaciones">
-              <UserPlusIcon className="size-4" />
-              Códigos de Invitación
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button asChild variant="outline">
+              <Link href="/admin/errores">
+                <AlertTriangleIcon className="size-4" />
+                Monitor de Errores
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link href="/admin/invitaciones">
+                <UserPlusIcon className="size-4" />
+                Códigos de Invitación
+              </Link>
+            </Button>
+          </div>
         }
       />
 
