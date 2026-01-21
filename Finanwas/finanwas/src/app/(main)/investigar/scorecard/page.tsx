@@ -77,10 +77,22 @@ export default function ScorecardPage() {
 
     try {
       let ticker = searchQuery.trim().toUpperCase()
+
+      // Auto-correct common ticker mistakes
+      const tickerCorrections: Record<string, string> = {
+        'YPF.BA': 'YPFD.BA', // YPF in Buenos Aires
+        'YPF': 'YPFD.BA',    // YPF without suffix → Argentine stock
+      }
+
+      if (tickerCorrections[ticker]) {
+        console.log(`Auto-correcting ${ticker} → ${tickerCorrections[ticker]}`)
+        ticker = tickerCorrections[ticker]
+      }
+
       let response = await fetch(`/api/market/stock/${ticker}`)
 
       // If not found and doesn't have a suffix, try with .BA (Buenos Aires)
-      if (response.status === 404 && !ticker.includes('.')) {
+      if (response.status === 404 && !ticker.includes('.') && !tickerCorrections[searchQuery.trim().toUpperCase()]) {
         console.log(`Ticker ${ticker} not found, trying ${ticker}.BA`)
         ticker = `${ticker}.BA`
         response = await fetch(`/api/market/stock/${ticker}`)
@@ -209,7 +221,7 @@ export default function ScorecardPage() {
         <CardHeader>
           <CardTitle>Buscar Empresa</CardTitle>
           <CardDescription>
-            Ingresá el ticker de la empresa. Soporta mercados argentinos (YPF, GGAL, PAMP) e internacionales (AAPL, GOOGL, TSLA)
+            Ingresá el ticker de la empresa. Funciona con Argentina (YPF, GGAL, PAMP), USA (AAPL, GOOGL, TSLA) y Europa (SAP.DE, MC.PA)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -218,7 +230,7 @@ export default function ScorecardPage() {
               <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Ej: YPF, AAPL, GOOGL"
+                placeholder="Ej: YPF, GGAL, AAPL, GOOGL"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -229,7 +241,7 @@ export default function ScorecardPage() {
             </Button>
           </form>
           <p className="text-xs text-muted-foreground mt-2">
-            💡 <strong>Tip:</strong> Podés buscar empresas argentinas (YPF, GGAL, PAMP) o internacionales (AAPL, GOOGL, TSLA). El sistema detecta automáticamente el mercado.
+            💡 <strong>Tip:</strong> Buscá empresas por ticker. Funciona con argentinas (YPF, GGAL, PAMP), estadounidenses (AAPL, GOOGL, TSLA) y europeas (SAP.DE, VOW.DE).
           </p>
         </CardContent>
       </Card>
@@ -243,7 +255,7 @@ export default function ScorecardPage() {
               <div>
                 <p className="font-semibold text-destructive">{error}</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Verifica que el ticker sea correcto. Ejemplos válidos: <strong>YPF, GGAL, PAMP</strong> (Argentina) o <strong>AAPL, GOOGL, TSLA</strong> (USA)
+                  Verifica el ticker. Ejemplos: <strong>YPF, GGAL, PAMP</strong> (🇦🇷 Argentina), <strong>AAPL, GOOGL, TSLA</strong> (🇺🇸 USA), <strong>SAP.DE, MC.PA</strong> (🇪🇺 Europa)
                 </p>
               </div>
             </div>
