@@ -1,0 +1,9 @@
+{
+  "title": "Conceptos Básicos",
+  "description": "Aprende los fundamentos de las finanzas personales y la inversión. Perfecto para quienes empiezan desde cero.",
+  "level": "beginner",
+  "order": 1,
+  "lessons_count": 3,
+  "estimated_duration_minutes": 20,
+  "tags": ["finanzas-personales", "inversión", "básico"]
+}

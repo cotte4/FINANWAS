@@ -1,0 +1,9 @@
+{
+  "title": "Diversificacion: No Pongas Todos los Huevos en la Misma Canasta",
+  "description": "Aprende como la diversificacion puede reducir el riesgo de tu portfolio sin sacrificar rendimientos potenciales.",
+  "duration_minutes": 15,
+  "difficulty": "beginner",
+  "order": 3,
+  "prerequisites": ["01-interes-compuesto"],
+  "tags": ["diversificacion", "riesgo", "portfolio", "inversion"]
+}

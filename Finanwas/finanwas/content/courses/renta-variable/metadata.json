@@ -1,0 +1,9 @@
+{
+  "title": "Renta Variable",
+  "description": "Aprende sobre acciones, CEDEARs y cómo invertir en empresas. Para quienes quieren entender el mundo de la bolsa.",
+  "level": "beginner",
+  "order": 2,
+  "lessons_count": 2,
+  "estimated_duration_minutes": 15,
+  "tags": ["acciones", "bolsa", "CEDEARs", "inversión"]
+}

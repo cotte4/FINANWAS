@@ -1,0 +1,296 @@
+[
+  {
+    "term": "Acción",
+    "definition": "Una acción es una parte del patrimonio de una empresa. Al comprar una acción, te conviertes en accionista y obtienes derechos de propiedad proporcionales, incluyendo participación en ganancias (dividendos) y voto en decisiones empresariales.",
+    "related_terms": ["Dividendo", "MERVAL", "Bolsa"],
+    "related_lesson": "renta-variable/01-que-son-acciones"
+  },
+  {
+    "term": "Bono",
+    "definition": "Un bono es un instrumento de deuda donde el emisor (empresa o gobierno) toma prestado dinero del comprador comprometiéndose a devolver el capital más intereses en fechas establecidas. Es una forma de renta fija con menor riesgo que las acciones.",
+    "related_terms": ["Renta Fija", "Tasa", "Vencimiento"],
+    "related_lesson": null
+  },
+  {
+    "term": "CEDEAR",
+    "definition": "Un CEDEAR (Certificado de Depósito Argentino) es un instrumento que representa una acción extranjera listada en la bolsa argentina. Permite invertir en empresas internacionales sin necesidad de abrir cuentas en otros países.",
+    "related_terms": ["Acción", "Bolsa", "Dólar MEP"],
+    "related_lesson": "renta-variable/02-cedears"
+  },
+  {
+    "term": "Dividendo",
+    "definition": "Un dividendo es la parte de las ganancias de una empresa que se distribuye a los accionistas. Las empresas suelen pagar dividendos de forma periódica, siendo una fuente adicional de retorno además del aumento del precio de la acción.",
+    "related_terms": ["Acción", "Rendimiento", "Rentabilidad"],
+    "related_lesson": null
+  },
+  {
+    "term": "ETF",
+    "definition": "Un ETF (Fondo Cotizado) es un fondo que invierte en múltiples activos (acciones, bonos, materias primas) y se negocia en bolsa como una acción. Ofrece diversificación automática con una única compra.",
+    "related_terms": ["Diversificación", "Fondo Común", "Cartera"],
+    "related_lesson": null
+  },
+  {
+    "term": "Inflación",
+    "definition": "La inflación es el aumento sostenido del nivel general de precios en la economía. Reduce el poder adquisitivo del dinero, es decir, con la misma cantidad de dinero puedes comprar menos cosas en el futuro.",
+    "related_terms": ["Poder Adquisitivo", "TNA", "Real"],
+    "related_lesson": "basics/02-inflacion"
+  },
+  {
+    "term": "Interés Compuesto",
+    "definition": "El interés compuesto es el interés generado sobre el capital inicial más los intereses acumulados. Es considerado la 'octava maravilla del mundo' porque permite que tus inversiones crezcan exponencialmente con el tiempo.",
+    "related_terms": ["Interés Simple", "Tasa", "Retorno"],
+    "related_lesson": "basics/01-interes-compuesto"
+  },
+  {
+    "term": "Liquidez",
+    "definition": "La liquidez es la facilidad y velocidad con que puedes convertir un activo en dinero en efectivo. El efectivo tiene máxima liquidez, mientras que una propiedad tiene mínima liquidez porque tarda tiempo en venderse.",
+    "related_terms": ["Activo", "Efectivo", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "P/E Ratio",
+    "definition": "El P/E (Price to Earnings) Ratio es la relación entre el precio de una acción y sus ganancias por acción. Un ratio bajo sugiere que la acción está subvaluada, mientras que un ratio alto sugiere que puede estar sobrevalorada.",
+    "related_terms": ["Acción", "Valuación", "Rentabilidad"],
+    "related_lesson": null
+  },
+  {
+    "term": "Renta Fija",
+    "definition": "La renta fija incluye inversiones donde el retorno es conocido y predecible, como bonos, plazos fijos y letras del tesoro. Ofrece menor riesgo pero también menores ganancias comparadas con renta variable.",
+    "related_terms": ["Bono", "Plazo Fijo", "Tasa"],
+    "related_lesson": null
+  },
+  {
+    "term": "Renta Variable",
+    "definition": "La renta variable incluye inversiones cuyo retorno es incierto y puede variar significativamente, como acciones y opciones. Ofrece mayor potencial de ganancias pero con mayor riesgo.",
+    "related_terms": ["Acción", "ETF", "Riesgo"],
+    "related_lesson": "renta-variable/01-que-son-acciones"
+  },
+  {
+    "term": "ROE",
+    "definition": "El ROE (Return on Equity) mide la rentabilidad que genera una empresa sobre el capital invertido por los accionistas. Un ROE alto indica que la empresa está usando eficientemente el capital para generar ganancias.",
+    "related_terms": ["Rentabilidad", "Ganancias", "Capital"],
+    "related_lesson": null
+  },
+  {
+    "term": "Diversificación",
+    "definition": "La diversificación es la estrategia de distribuir tus inversiones entre diferentes activos, sectores y geografías para reducir el riesgo. El principio clave es no poner todos los huevos en la misma canasta.",
+    "related_terms": ["Portafolio", "Riesgo", "Estrategia"],
+    "related_lesson": "basics/03-diversificacion"
+  },
+  {
+    "term": "Portafolio",
+    "definition": "Un portafolio es el conjunto de todas tus inversiones combinadas. Puede incluir acciones, bonos, fondos mutuos, bienes raíces y otros activos. Un buen portafolio está balanceado según tu perfil de riesgo.",
+    "related_terms": ["Diversificación", "Activo", "Rentabilidad"],
+    "related_lesson": null
+  },
+  {
+    "term": "Rendimiento",
+    "definition": "El rendimiento es la ganancia o pérdida que obtienes de una inversión, usualmente expresado como porcentaje del monto invertido. Se calcula como (Valor Final - Valor Inicial) / Valor Inicial × 100.",
+    "related_terms": ["Retorno", "Rentabilidad", "Ganancias"],
+    "related_lesson": null
+  },
+  {
+    "term": "Riesgo",
+    "definition": "El riesgo es la probabilidad de que una inversión genere pérdidas o rendimientos inferiores a los esperados. Toda inversión tiene algún nivel de riesgo, y generalmente a mayor riesgo corresponde mayor potencial de retorno.",
+    "related_terms": ["Volatilidad", "Rentabilidad", "Estrategia"],
+    "related_lesson": null
+  },
+  {
+    "term": "Plazo Fijo",
+    "definition": "Un plazo fijo es una inversión de renta fija donde depositas dinero en un banco por un período determinado y recibes una tasa de interés fija al vencimiento. Es una inversión de bajo riesgo.",
+    "related_terms": ["Renta Fija", "Tasa", "Interés"],
+    "related_lesson": null
+  },
+  {
+    "term": "FCI",
+    "definition": "Un FCI (Fondo Común de Inversión) es un fondo que agrupa el dinero de múltiples inversores para invertirlo en una cartera diversificada de activos administrada por profesionales. Similar a un ETF pero sin cotización en bolsa.",
+    "related_terms": ["Fondo Común", "Diversificación", "Administrador"],
+    "related_lesson": null
+  },
+  {
+    "term": "Mercado",
+    "definition": "Un mercado financiero es el lugar (físico o virtual) donde se compran y venden activos financieros como acciones, bonos y divisas. El mercado determina los precios a través de la oferta y la demanda.",
+    "related_terms": ["Bolsa", "Oferta", "Demanda"],
+    "related_lesson": null
+  },
+  {
+    "term": "Capitalización",
+    "definition": "La capitalización de mercado (market cap) es el valor total de una empresa en la bolsa, calculado como el precio de la acción multiplicado por el número total de acciones. Mide el tamaño de una empresa.",
+    "related_terms": ["Acción", "Precio", "Valuación"],
+    "related_lesson": null
+  },
+  {
+    "term": "Apalancamiento",
+    "definition": "El apalancamiento es el uso de dinero prestado para invertir más de lo que tenías inicialmente. Amplifica tanto las ganancias como las pérdidas, aumentando significativamente el riesgo.",
+    "related_terms": ["Deuda", "Riesgo", "Margen"],
+    "related_lesson": null
+  },
+  {
+    "term": "Activo",
+    "definition": "Un activo es cualquier cosa de valor que posees o que genera dinero, como acciones, bonos, inmuebles, efectivo o inversiones. Los activos forman la base de tu patrimonio.",
+    "related_terms": ["Patrimonio", "Pasivo", "Valuación"],
+    "related_lesson": null
+  },
+  {
+    "term": "Pasivo",
+    "definition": "Un pasivo es una obligación financiera que tienes, como deudas, préstamos o créditos que debes pagar. El pasivo reduce tu patrimonio neto (Patrimonio = Activos - Pasivos).",
+    "related_terms": ["Deuda", "Activo", "Patrimonio"],
+    "related_lesson": null
+  },
+  {
+    "term": "Patrimonio",
+    "definition": "El patrimonio es el valor neto de tu riqueza financiera, calculado como tus activos totales menos tus pasivos totales. Representa lo que realmente posees después de pagar todas tus deudas.",
+    "related_terms": ["Activo", "Pasivo", "Riqueza"],
+    "related_lesson": null
+  },
+  {
+    "term": "Volatilidad",
+    "definition": "La volatilidad mide cuán rápido y significativamente cambia el precio de una inversión. Una inversión volátil experimenta grandes fluctuaciones de precio, lo que significa mayor riesgo pero también mayor potencial de retorno.",
+    "related_terms": ["Riesgo", "Precio", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "Broker",
+    "definition": "Un broker es un intermediario financiero autorizado que ejecuta operaciones de compra y venta de valores en nombre de sus clientes. Los brokers cobran comisiones por sus servicios y proporcionan acceso a mercados financieros.",
+    "related_terms": ["Comisión", "Mercado", "Orden"],
+    "related_lesson": null
+  },
+  {
+    "term": "Comisión",
+    "definition": "La comisión es el cargo que cobra un broker u otra entidad financiera por realizar operaciones en tu nombre. Puede ser un monto fijo por operación o un porcentaje del monto invertido.",
+    "related_terms": ["Broker", "Custodia", "Orden"],
+    "related_lesson": null
+  },
+  {
+    "term": "Custodia",
+    "definition": "La custodia es el servicio de guardar y administrar activos financieros en nombre de un inversor. Los brokers o bancos mantienen tus acciones, bonos y otros valores en custodia, garantizando su seguridad.",
+    "related_terms": ["Broker", "Activo", "Comisión"],
+    "related_lesson": null
+  },
+  {
+    "term": "Dólar MEP",
+    "definition": "El Dólar MEP (Mercado Electrónico de Pagos) es un tipo de cambio de dólares que se obtiene comprando un bono en pesos y vendiéndolo en dólares. Es una forma legal de acceder a dólares en Argentina con menor regulación que el oficial.",
+    "related_terms": ["Dólar CCL", "Bono", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "Dólar CCL",
+    "definition": "El Dólar Contado con Liquidación (CCL) es similar al MEP pero permite transferir los dólares a una cuenta en el exterior. Se obtiene comprando activos locales y vendiéndolos en mercados extranjeros.",
+    "related_terms": ["Dólar MEP", "CEDEAR", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "Fondo Común",
+    "definition": "Un Fondo Común de Inversión es un patrimonio colectivo formado por aportes de múltiples inversores. Un administrador profesional invierte ese dinero en una cartera diversificada según la estrategia del fondo.",
+    "related_terms": ["FCI", "Diversificación", "Cuotaparte"],
+    "related_lesson": null
+  },
+  {
+    "term": "Horizonte",
+    "definition": "El horizonte de inversión es el período de tiempo durante el cual planeas mantener tus inversiones antes de necesitar el dinero. Puede ser corto plazo (menos de 1 año), mediano plazo (1-5 años) o largo plazo (más de 5 años).",
+    "related_terms": ["Largo Plazo", "Riesgo", "Estrategia"],
+    "related_lesson": null
+  },
+  {
+    "term": "Índice",
+    "definition": "Un índice bursátil es una medida estadística que representa el valor de un grupo de acciones. Sirve como referencia para medir el rendimiento del mercado o de sectores específicos. Ejemplos: S&P 500, MERVAL.",
+    "related_terms": ["MERVAL", "Mercado", "ETF"],
+    "related_lesson": null
+  },
+  {
+    "term": "IPO",
+    "definition": "Una IPO (Initial Public Offering) es la primera venta de acciones de una empresa al público en la bolsa de valores. Es el momento en que una empresa privada se convierte en pública y cualquiera puede comprar sus acciones.",
+    "related_terms": ["Acción", "Mercado Primario", "Suscripción"],
+    "related_lesson": null
+  },
+  {
+    "term": "Largo Plazo",
+    "definition": "El largo plazo en inversiones generalmente se refiere a un horizonte de más de 5 años. Las inversiones a largo plazo suelen tener menos riesgo efectivo porque el tiempo permite recuperarse de caídas temporales del mercado.",
+    "related_terms": ["Horizonte", "Interés Compuesto", "Estrategia"],
+    "related_lesson": null
+  },
+  {
+    "term": "Margen",
+    "definition": "El margen es el dinero que debes depositar como garantía cuando operas con apalancamiento o vendes en corto. Si tus pérdidas superan el margen, recibirás un 'margin call' pidiendo que deposites más dinero.",
+    "related_terms": ["Apalancamiento", "Broker", "Riesgo"],
+    "related_lesson": null
+  },
+  {
+    "term": "Mercado Primario",
+    "definition": "El mercado primario es donde se emiten y venden valores por primera vez, como una IPO o una nueva emisión de bonos. El dinero de la venta va directamente al emisor (empresa o gobierno).",
+    "related_terms": ["Mercado Secundario", "IPO", "Suscripción"],
+    "related_lesson": null
+  },
+  {
+    "term": "Mercado Secundario",
+    "definition": "El mercado secundario es donde los inversores compran y venden valores entre sí después de la emisión inicial. La bolsa de valores es el mercado secundario más conocido. El emisor no recibe dinero de estas transacciones.",
+    "related_terms": ["Mercado Primario", "Bolsa", "Liquidez"],
+    "related_lesson": null
+  },
+  {
+    "term": "MERVAL",
+    "definition": "El MERVAL (Mercado de Valores de Buenos Aires) es el principal índice bursátil de Argentina. Mide el rendimiento de las acciones más negociadas en la Bolsa de Comercio de Buenos Aires.",
+    "related_terms": ["Índice", "Acción", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "Nominal",
+    "definition": "Un valor nominal es el valor expresado sin ajustar por inflación. Por ejemplo, si tu inversión creció 50% pero la inflación fue 40%, tu ganancia nominal es 50% pero tu ganancia real es aproximadamente 10%.",
+    "related_terms": ["Real", "Inflación", "Rendimiento"],
+    "related_lesson": null
+  },
+  {
+    "term": "Orden",
+    "definition": "Una orden es una instrucción que le das a tu broker para comprar o vender un activo. Puede ser una orden de mercado (se ejecuta al precio actual) o una orden límite (se ejecuta solo a un precio específico o mejor).",
+    "related_terms": ["Broker", "Mercado", "Precio"],
+    "related_lesson": null
+  },
+  {
+    "term": "Papel",
+    "definition": "Papel es un término coloquial argentino para referirse a cualquier instrumento financiero negociable, especialmente acciones y bonos. Proviene de la época en que los títulos se representaban en documentos físicos.",
+    "related_terms": ["Acción", "Bono", "Valor"],
+    "related_lesson": null
+  },
+  {
+    "term": "Prima",
+    "definition": "La prima es el precio o costo adicional que se paga por algo. En seguros, es el costo de la cobertura. En opciones, es el precio que pagas por el derecho a comprar o vender. En bonos, cuando cotiza sobre par.",
+    "related_terms": ["Opción", "Bono", "Precio"],
+    "related_lesson": null
+  },
+  {
+    "term": "Real",
+    "definition": "Un valor real es el valor ajustado por inflación, que refleja el poder adquisitivo verdadero. Si tu inversión rindió 50% nominal y la inflación fue 40%, tu rendimiento real es aproximadamente 7% (50-40/1.4).",
+    "related_terms": ["Nominal", "Inflación", "Poder Adquisitivo"],
+    "related_lesson": "basics/02-inflacion"
+  },
+  {
+    "term": "Rescate",
+    "definition": "El rescate es la operación de retirar tu dinero de un fondo de inversión. Dependiendo del tipo de fondo, el rescate puede ser inmediato o demorar algunos días hábiles. Algunos fondos tienen penalidades por rescate anticipado.",
+    "related_terms": ["FCI", "Fondo Común", "Suscripción"],
+    "related_lesson": null
+  },
+  {
+    "term": "Spot",
+    "definition": "El precio spot es el precio actual de mercado para compra o venta inmediata de un activo. Se diferencia del precio a futuro, que es para entrega en una fecha posterior.",
+    "related_terms": ["Precio", "Mercado", "Futuro"],
+    "related_lesson": null
+  },
+  {
+    "term": "Spread",
+    "definition": "El spread es la diferencia entre el precio de compra (ask) y el precio de venta (bid) de un activo. Un spread pequeño indica alta liquidez, mientras que un spread grande puede significar menor liquidez o mayor volatilidad.",
+    "related_terms": ["Liquidez", "Precio", "Mercado"],
+    "related_lesson": null
+  },
+  {
+    "term": "Suscripción",
+    "definition": "La suscripción es la operación de invertir dinero en un fondo de inversión comprando cuotapartes. También se refiere al proceso de comprar valores en una nueva emisión o IPO.",
+    "related_terms": ["FCI", "Rescate", "IPO"],
+    "related_lesson": null
+  },
+  {
+    "term": "TNA",
+    "definition": "La TNA (Tasa Nominal Anual) es la tasa de interés expresada en términos anuales sin considerar la capitalización de intereses. Para conocer el rendimiento efectivo, debes calcular la TEA (Tasa Efectiva Anual).",
+    "related_terms": ["Tasa", "Interés", "Nominal"],
+    "related_lesson": null
+  }
+]

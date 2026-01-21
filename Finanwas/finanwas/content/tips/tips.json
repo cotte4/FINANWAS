@@ -1,0 +1,139 @@
+{
+  "tips": [
+    {
+      "id": "tip-001",
+      "content": "El interés compuesto es la octava maravilla del mundo. Quien lo entiende, lo gana; quien no, lo paga.",
+      "attribution": "Albert Einstein (atribuido)",
+      "category": "quote",
+      "target_profiles": ["beginner", "intermediate", "advanced"],
+      "target_goals": ["save", "invest", "retirement", "learn"],
+      "related_lesson": "/courses/basics/01-interes-compuesto"
+    },
+    {
+      "id": "tip-002",
+      "content": "No guardes todos tus ahorros en efectivo. Con la inflación argentina, tu dinero pierde valor cada día. Un plazo fijo, bonos CER o CEDEARs te ayudan a proteger tu poder adquisitivo.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner"],
+      "target_goals": ["save", "invest", "learn"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "id": "tip-003",
+      "content": "La regla del 72: dividí 72 por tu tasa de retorno anual para saber cuántos años tardará tu inversión en duplicarse. Ejemplo: 8% anual → 72 ÷ 8 = 9 años.",
+      "attribution": null,
+      "category": "fact",
+      "target_profiles": ["beginner", "intermediate"],
+      "target_goals": ["invest", "learn", "retirement"],
+      "related_lesson": "/courses/basics/01-interes-compuesto"
+    },
+    {
+      "id": "tip-004",
+      "content": "Antes de invertir en acciones, armá un fondo de emergencia con 3-6 meses de gastos en efectivo o plazo fijo. Así no tenés que vender inversiones en el peor momento por una urgencia.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner"],
+      "target_goals": ["save", "invest"],
+      "related_lesson": null
+    },
+    {
+      "id": "tip-005",
+      "content": "Diversificar no significa tener 100 acciones diferentes. Con 10-15 empresas de sectores y geografías distintas ya lográs la mayor parte del beneficio.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["intermediate", "advanced"],
+      "target_goals": ["invest"],
+      "related_lesson": "/courses/basics/03-diversificacion"
+    },
+    {
+      "id": "tip-006",
+      "content": "El mejor momento para empezar a invertir fue hace 10 años. El segundo mejor momento es hoy.",
+      "attribution": "Proverbio chino",
+      "category": "quote",
+      "target_profiles": ["beginner", "intermediate"],
+      "target_goals": ["invest", "learn", "retirement"],
+      "related_lesson": null
+    },
+    {
+      "id": "tip-007",
+      "content": "No intentés 'adivinar' el momento perfecto para comprar. La estrategia Dollar Cost Averaging (invertir un monto fijo mensualmente) reduce el riesgo de invertir todo en el pico del mercado.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner", "intermediate"],
+      "target_goals": ["invest"],
+      "related_lesson": null
+    },
+    {
+      "id": "tip-008",
+      "content": "Los CEDEARs te permiten invertir en Apple, Google o Tesla desde Argentina, en pesos, sin abrir cuenta en el exterior. Es dolarización indirecta + acceso al mercado global.",
+      "attribution": null,
+      "category": "fact",
+      "target_profiles": ["beginner", "intermediate"],
+      "target_goals": ["invest", "learn"],
+      "related_lesson": "/courses/renta-variable/02-cedears"
+    },
+    {
+      "id": "tip-009",
+      "content": "En el corto plazo, el mercado es una máquina de votar. En el largo plazo, es una máquina de pesar.",
+      "attribution": "Benjamin Graham",
+      "category": "quote",
+      "target_profiles": ["intermediate", "advanced"],
+      "target_goals": ["invest", "learn"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "id": "tip-010",
+      "content": "Nunca inviertas en algo que no entendés. Si no podés explicar una inversión de forma simple, no la hagas. La claridad es tu mejor protección contra malas decisiones.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner", "intermediate", "advanced"],
+      "target_goals": ["invest", "learn"],
+      "related_lesson": null
+    },
+    {
+      "id": "tip-011",
+      "content": "El pánico es tu enemigo, la paciencia tu aliada. Los mercados caen periódicamente (Bear Markets), pero históricamente siempre se recuperan. Vender en pánico garantiza pérdidas.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner", "intermediate"],
+      "target_goals": ["invest"],
+      "related_lesson": null
+    },
+    {
+      "id": "tip-012",
+      "content": "Rebalanceá tu portfolio una vez al año. Si tus acciones crecieron mucho, vendé una parte y pasala a bonos para mantener tu balance riesgo/seguridad. Te obliga a 'vender caro, comprar barato'.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["intermediate", "advanced"],
+      "target_goals": ["invest"],
+      "related_lesson": "/courses/basics/03-diversificacion"
+    },
+    {
+      "id": "tip-013",
+      "content": "Las empresas que pagan dividendos consistentemente por 25+ años (Dividend Aristocrats) son señal de solidez extrema. Ejemplos: Coca-Cola, Johnson & Johnson, Procter & Gamble.",
+      "attribution": null,
+      "category": "fact",
+      "target_profiles": ["intermediate", "advanced"],
+      "target_goals": ["invest", "retirement"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "id": "tip-014",
+      "content": "El costo de NO invertir es mayor que el costo de invertir mal. En Argentina con 140% de inflación anual, dejar $100.000 'bajo el colchón' un año es perder $58.000 de poder adquisitivo.",
+      "attribution": null,
+      "category": "practical",
+      "target_profiles": ["beginner"],
+      "target_goals": ["save", "invest", "learn"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "id": "tip-015",
+      "content": "Warren Buffett recomienda: 'Sé miedoso cuando otros son codiciosos, y codicioso cuando otros tienen miedo.' Las mejores oportunidades aparecen cuando hay pánico en el mercado.",
+      "attribution": "Warren Buffett",
+      "category": "quote",
+      "target_profiles": ["intermediate", "advanced"],
+      "target_goals": ["invest", "learn"],
+      "related_lesson": null
+    }
+  ]
+}

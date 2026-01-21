@@ -1,0 +1,304 @@
+{
+  "terms": [
+    {
+      "term": "Acción",
+      "definition": "Título que representa una parte del capital social de una empresa. Al comprar acciones te convertís en accionista y copropietario de la compañía, con derecho a participar de sus ganancias (dividendos) y a votar en asambleas.",
+      "related_terms": ["Dividendo", "CEDEAR", "ETF", "Ticker"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "term": "Bono",
+      "definition": "Instrumento de deuda emitido por gobiernos o empresas para financiarse. Al comprar un bono, estás prestando dinero a cambio de pagos de intereses periódicos (cupones) y la devolución del capital en una fecha determinada (vencimiento).",
+      "related_terms": ["Renta Fija", "Cupón", "Yield", "Vencimiento"],
+      "related_lesson": null
+    },
+    {
+      "term": "CEDEAR",
+      "definition": "Certificado de Depósito Argentino. Es un certificado que representa acciones de empresas extranjeras y permite invertir en compañías internacionales (como Apple, Google, Tesla) desde la bolsa argentina, operando en pesos.",
+      "related_terms": ["Acción", "ADR", "Ticker", "Ratio"],
+      "related_lesson": "/courses/renta-variable/02-cedears"
+    },
+    {
+      "term": "Dividendo",
+      "definition": "Parte de las ganancias de una empresa que se distribuye entre sus accionistas, generalmente de forma trimestral o anual. Es una forma de recompensar a los inversores por mantener las acciones. No todas las empresas pagan dividendos.",
+      "related_terms": ["Acción", "Dividend Yield", "Payout Ratio"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "term": "ETF",
+      "definition": "Exchange Traded Fund (Fondo Cotizado en Bolsa). Es un fondo de inversión que replica un índice, sector o canasta de activos y se negocia como una acción. Permite diversificar con una sola compra (ej: SPY replica al S&P 500 con 500 empresas).",
+      "related_terms": ["Índice", "Diversificación", "S&P 500", "CEDEAR"],
+      "related_lesson": null
+    },
+    {
+      "term": "Inflación",
+      "definition": "Aumento generalizado y sostenido de los precios de bienes y servicios en una economía. Reduce el poder adquisitivo del dinero: con la misma cantidad de pesos podés comprar menos cosas que antes. En Argentina es un problema crónico.",
+      "related_terms": ["Poder Adquisitivo", "Devaluación", "IPC", "CER"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "term": "Interés Compuesto",
+      "definition": "Efecto de reinvertir las ganancias para que generen nuevas ganancias. A diferencia del interés simple, no solo ganás sobre el capital inicial sino también sobre los intereses acumulados. Es la herramienta más poderosa para hacer crecer inversiones a largo plazo.",
+      "related_terms": ["Interés Simple", "ROI", "TIR", "Reinversión"],
+      "related_lesson": "/courses/basics/01-interes-compuesto"
+    },
+    {
+      "term": "Diversificación",
+      "definition": "Estrategia de distribuir inversiones en diferentes activos, sectores, geografías o instrumentos para reducir riesgos. El principio es 'no poner todos los huevos en la misma canasta': si una inversión baja, las otras pueden compensar.",
+      "related_terms": ["Riesgo", "Portfolio", "Asset Allocation", "Correlación"],
+      "related_lesson": "/courses/basics/03-diversificacion"
+    },
+    {
+      "term": "Renta Fija",
+      "definition": "Inversiones que pagan un retorno predecible y generalmente estable (bonos, plazos fijos, LECAPs). Se llama 'fija' porque conocés de antemano cuánto vas a cobrar, aunque el valor puede fluctuar en el mercado secundario.",
+      "related_terms": ["Bono", "Plazo Fijo", "LECAP", "Cupón"],
+      "related_lesson": null
+    },
+    {
+      "term": "Renta Variable",
+      "definition": "Inversiones cuyo retorno no está garantizado y fluctúa según el desempeño del activo (acciones, ETFs, CEDEARs). Mayor riesgo que renta fija, pero también mayor potencial de ganancias a largo plazo.",
+      "related_terms": ["Acción", "ETF", "Volatilidad", "CEDEAR"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "term": "Broker",
+      "definition": "Intermediario financiero autorizado que te permite comprar y vender activos en los mercados (acciones, bonos, CEDEARs). En Argentina: Balanz, Invertir Online, Bull Market Brokers. Cobran comisiones por operación.",
+      "related_terms": ["Comisión", "Cuenta Comitente", "ALyC"],
+      "related_lesson": null
+    },
+    {
+      "term": "Ticker",
+      "definition": "Código único de identificación de un activo en la bolsa, generalmente de 3-5 letras. Ejemplos: AAPL (Apple), MELI (Mercado Libre), GGAL (Banco Galicia). Sirve para buscar y operar el activo fácilmente.",
+      "related_terms": ["Acción", "CEDEAR", "Símbolo"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "term": "P/E Ratio",
+      "definition": "Price to Earnings Ratio (Precio sobre Ganancias). Divide el precio de la acción entre la ganancia por acción. Indica cuántos años tardás en recuperar la inversión si la empresa mantiene sus ganancias. P/E bajo puede indicar acción barata, P/E alto puede indicar crecimiento esperado.",
+      "related_terms": ["Valuación", "P/B Ratio", "Ganancia por Acción"],
+      "related_lesson": null
+    },
+    {
+      "term": "ROE",
+      "definition": "Return on Equity (Retorno sobre Patrimonio). Mide la rentabilidad que genera una empresa con el capital de los accionistas. Se calcula: (Ganancia Neta / Patrimonio Neto) × 100. Un ROE alto (15%+) indica que la empresa usa eficientemente el capital.",
+      "related_terms": ["ROA", "Rentabilidad", "Patrimonio Neto"],
+      "related_lesson": null
+    },
+    {
+      "term": "Liquidez",
+      "definition": "Facilidad y rapidez para convertir un activo en efectivo sin perder mucho valor. Efectivo = máxima liquidez. Una acción muy negociada = alta liquidez. Un inmueble = baja liquidez. Importante para emergencias y flexibilidad.",
+      "related_terms": ["Activo Líquido", "Volumen", "Spread"],
+      "related_lesson": null
+    },
+    {
+      "term": "Volatilidad",
+      "definition": "Medida de cuánto fluctúa el precio de un activo en un período. Alta volatilidad = grandes oscilaciones (más riesgo). Baja volatilidad = movimientos suaves. Las acciones tech suelen ser más volátiles que los bonos.",
+      "related_terms": ["Riesgo", "Desviación Estándar", "Beta"],
+      "related_lesson": null
+    },
+    {
+      "term": "Plazo Fijo",
+      "definition": "Depósito bancario a término fijo donde dejás dinero por un período determinado (30, 60, 90 días) a cambio de una tasa de interés. En Argentina es común para ahorro conservador, aunque suele perder contra inflación.",
+      "related_terms": ["Renta Fija", "TNA", "Inflación"],
+      "related_lesson": null
+    },
+    {
+      "term": "Dollar Cost Averaging",
+      "definition": "Estrategia de invertir una cantidad fija regularmente (mensual) sin importar el precio del activo. Reduce riesgo de invertir todo en el peor momento y promedia el precio de compra a largo plazo. Ideal para principiantes.",
+      "related_terms": ["Inversión Periódica", "Promedio de Compra"],
+      "related_lesson": null
+    },
+    {
+      "term": "Capitalización de Mercado",
+      "definition": "Valor total de una empresa en la bolsa. Se calcula: Precio de la acción × Cantidad total de acciones. Clasifica empresas en: small cap (pequeñas), mid cap (medianas), large cap (grandes). Apple tiene cap de ~$3 trillones USD.",
+      "related_terms": ["Market Cap", "Large Cap", "Small Cap"],
+      "related_lesson": "/courses/renta-variable/01-que-son-acciones"
+    },
+    {
+      "term": "Yield",
+      "definition": "Rendimiento o retorno expresado en porcentaje anual. En bonos: interés que paga dividido el precio. En acciones: dividendo anual dividido el precio (Dividend Yield). Ejemplo: si un bono paga $5 y vale $100, yield = 5%.",
+      "related_terms": ["Dividendo", "TIR", "Cupón"],
+      "related_lesson": null
+    },
+    {
+      "term": "S&P 500",
+      "definition": "Índice que agrupa las 500 empresas más grandes de Estados Unidos (Apple, Microsoft, Amazon, etc). Es el benchmark más usado para medir el mercado estadounidense. Invertir en un ETF del S&P 500 te da exposición a toda la economía USA.",
+      "related_terms": ["Índice", "ETF", "Benchmark", "SPY"],
+      "related_lesson": null
+    },
+    {
+      "term": "Devaluación",
+      "definition": "Pérdida de valor de una moneda frente a otra (generalmente el dólar). En Argentina es frecuente: si el peso pasa de $500 a $1000 por dólar, se devaluó 100%. Afecta precios, importaciones y poder adquisitivo.",
+      "related_terms": ["Tipo de Cambio", "Inflación", "MEP", "Blue"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "term": "MEP",
+      "definition": "Mercado Electrónico de Pagos. Tipo de cambio alternativo en Argentina para comprar dólares legalmente operando bonos en la bolsa. Precio intermedio entre oficial y blue. Es el tipo de cambio implícito en CEDEARs.",
+      "related_terms": ["Dólar Blue", "CCL", "CEDEAR", "Tipo de Cambio"],
+      "related_lesson": "/courses/renta-variable/02-cedears"
+    },
+    {
+      "term": "TIR",
+      "definition": "Tasa Interna de Retorno. Mide el rendimiento anualizado de una inversión considerando todos los flujos de dinero (aportes y retiros) en el tiempo. Permite comparar inversiones diferentes. Es más precisa que el ROI simple.",
+      "related_terms": ["ROI", "Yield", "Rendimiento"],
+      "related_lesson": null
+    },
+    {
+      "term": "Bull Market",
+      "definition": "Mercado alcista. Período prolongado donde los precios de acciones suben consistentemente. Los inversores están optimistas y hay mucha demanda. Contrario a Bear Market (mercado bajista). El toro embiste hacia arriba.",
+      "related_terms": ["Bear Market", "Rally", "Tendencia"],
+      "related_lesson": null
+    },
+    {
+      "term": "Bear Market",
+      "definition": "Mercado bajista. Período donde los precios caen 20% o más desde sus máximos. Inversores pesimistas, ventas generalizadas. Suele ocurrir en recesiones. El oso ataca con su garra hacia abajo. Es momento de comprar para inversores de largo plazo.",
+      "related_terms": ["Bull Market", "Corrección", "Crash"],
+      "related_lesson": null
+    },
+    {
+      "term": "Asset Allocation",
+      "definition": "Distribución estratégica de tu portfolio entre diferentes clases de activos (acciones, bonos, efectivo, inmuebles). Ejemplo: 60% acciones, 30% bonos, 10% efectivo. Es la decisión más importante para rendimiento y riesgo a largo plazo.",
+      "related_terms": ["Diversificación", "Portfolio", "Rebalanceo"],
+      "related_lesson": "/courses/basics/03-diversificacion"
+    },
+    {
+      "term": "Rebalanceo",
+      "definition": "Ajustar tu portfolio periódicamente para volver a la distribución objetivo. Si tus acciones crecieron mucho, vendés parte y comprás bonos. Te obliga a 'vender caro, comprar barato'. Se recomienda hacerlo 1-2 veces al año.",
+      "related_terms": ["Asset Allocation", "Portfolio", "Diversificación"],
+      "related_lesson": "/courses/basics/03-diversificacion"
+    },
+    {
+      "term": "Spread",
+      "definition": "Diferencia entre el precio de compra (ask) y el precio de venta (bid) de un activo. Un spread bajo indica buena liquidez. Un spread alto (ej: 5%) indica que es difícil comprar/vender sin perder valor.",
+      "related_terms": ["Liquidez", "Bid", "Ask", "Comisión"],
+      "related_lesson": null
+    },
+    {
+      "term": "LECAP",
+      "definition": "Letra de Capitalización del Tesoro Nacional argentino. Instrumento de deuda de corto plazo (1-12 meses) emitido por el gobierno. Alternativa a plazo fijo, suele pagar tasas en pesos. Tiene riesgo soberano (que Argentina no pague).",
+      "related_terms": ["Bono", "Renta Fija", "Tesoro"],
+      "related_lesson": null
+    },
+    {
+      "term": "CER",
+      "definition": "Coeficiente de Estabilización de Referencia. Ajuste por inflación oficial (IPC) usado en algunos bonos argentinos. Un bono CER te protege de inflación: si la inflación es 100% anual, el bono ajusta su valor 100% + tasa fija.",
+      "related_terms": ["Inflación", "IPC", "Bono", "UVA"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "term": "Blue Chip",
+      "definition": "Empresas grandes, establecidas, con historial sólido de ganancias y dividendos. Son las 'crème de la crème' del mercado (Apple, Coca-Cola, Microsoft). Menor riesgo que startups, pero también menor potencial de crecimiento explosivo.",
+      "related_terms": ["Large Cap", "Dividendo", "S&P 500"],
+      "related_lesson": null
+    },
+    {
+      "term": "IPO",
+      "definition": "Initial Public Offering (Oferta Pública Inicial). Cuando una empresa privada sale a la bolsa por primera vez y vende acciones al público. Ejemplo: Mercado Libre hizo su IPO en NASDAQ en 2007. Es momento de alta volatilidad.",
+      "related_terms": ["Acción", "Salida a Bolsa", "SPAC"],
+      "related_lesson": null
+    },
+    {
+      "term": "Dividendo Aristocrat",
+      "definition": "Empresa del S&P 500 que ha aumentado sus dividendos consecutivamente por 25+ años. Señal de solidez financiera extrema. Ejemplos: Coca-Cola, Johnson & Johnson, Procter & Gamble. Ideales para inversores que buscan ingresos pasivos.",
+      "related_terms": ["Dividendo", "Blue Chip", "Dividend Yield"],
+      "related_lesson": null
+    },
+    {
+      "term": "Comisión",
+      "definition": "Costo que cobra el broker por ejecutar operaciones de compra/venta de activos. En Argentina varía 0.5%-1.5% por operación. Hay que sumar impuestos (Ingresos Brutos 0.6%, Ganancias 15% sobre utilidad). Puede reducir significativamente tu rendimiento.",
+      "related_terms": ["Broker", "Costos de Transacción", "ALyC"],
+      "related_lesson": null
+    },
+    {
+      "term": "Stop Loss",
+      "definition": "Orden automática para vender un activo si su precio cae a cierto nivel, limitando pérdidas. Ejemplo: compraste a $100, ponés stop loss en $90. Si baja a $90, se vende automáticamente. Protege de caídas fuertes, pero puede venderte antes de una recuperación.",
+      "related_terms": ["Orden", "Gestión de Riesgo", "Take Profit"],
+      "related_lesson": null
+    },
+    {
+      "term": "Beta",
+      "definition": "Mide cuánto se mueve una acción comparada con el mercado (S&P 500). Beta = 1: se mueve igual que el mercado. Beta > 1: más volátil (riesgoso). Beta < 1: menos volátil (conservador). Tesla tiene beta alto, Coca-Cola beta bajo.",
+      "related_terms": ["Volatilidad", "Riesgo", "Correlación"],
+      "related_lesson": null
+    },
+    {
+      "term": "Fondo Común de Inversión",
+      "definition": "FCI. Pool de dinero de muchos inversores administrado profesionalmente. El fondo invierte en acciones, bonos u otros activos. Vos comprás cuotapartes. Diversificación instantánea, pero cobrán comisión de administración (1-3% anual).",
+      "related_terms": ["ETF", "Cuotaparte", "Gestión Activa"],
+      "related_lesson": null
+    },
+    {
+      "term": "Análisis Fundamental",
+      "definition": "Método de valuación que estudia balances, ganancias, deuda, sector y ventajas competitivas de una empresa para determinar su valor intrínseco. Si el precio de mercado es menor, es oportunidad de compra. Warren Buffett es maestro en esto.",
+      "related_terms": ["P/E Ratio", "ROE", "Valuación", "Balance"],
+      "related_lesson": null
+    },
+    {
+      "term": "Análisis Técnico",
+      "definition": "Método de predicción basado en gráficos de precio, volumen y patrones históricos. Usa indicadores (RSI, MACD, medias móviles) para identificar tendencias. Criticado por fundamentalistas, pero popular en trading de corto plazo.",
+      "related_terms": ["Trading", "Gráfico de Velas", "Soporte y Resistencia"],
+      "related_lesson": null
+    },
+    {
+      "term": "Poder Adquisitivo",
+      "definition": "Cantidad de bienes y servicios que podés comprar con cierta cantidad de dinero. La inflación reduce el poder adquisitivo: $10.000 en 2020 compraban más que $10.000 en 2024. Por eso invertir es clave: mantener/aumentar poder adquisitivo.",
+      "related_terms": ["Inflación", "Devaluación", "Valor Real"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "term": "Horizonte de Inversión",
+      "definition": "Período de tiempo que planeás mantener una inversión antes de necesitar el dinero. Corto plazo: < 1 año. Mediano: 1-5 años. Largo: 5+ años. A mayor horizonte, podés tomar más riesgo (acciones). Corto plazo requiere liquidez (bonos, efectivo).",
+      "related_terms": ["Asset Allocation", "Riesgo", "Plazo"],
+      "related_lesson": null
+    },
+    {
+      "term": "Riesgo País",
+      "definition": "Indicador que mide la probabilidad de que un país no pague su deuda soberana. Medido en puntos básicos sobre bonos del Tesoro USA. Argentina suele tener riesgo país alto (1000-2000 puntos), lo que encarece financiamiento y refleja inestabilidad.",
+      "related_terms": ["Bono Soberano", "Default", "EMBI"],
+      "related_lesson": null
+    },
+    {
+      "term": "Default",
+      "definition": "Incumplimiento de pago de deuda. Cuando un país o empresa no puede pagar capital o intereses a acreedores. Argentina ha tenido múltiples defaults (2001, 2014, 2020). Causa pérdidas a inversores en bonos y colapso de confianza.",
+      "related_terms": ["Riesgo País", "Bono", "Reestructuración"],
+      "related_lesson": null
+    },
+    {
+      "term": "Cuotaparte",
+      "definition": "Unidad de participación en un Fondo Común de Inversión (FCI). Al invertir en un FCI comprás cuotapartes. Su valor fluctúa según el rendimiento de los activos del fondo. Equivalente a las 'acciones' del fondo.",
+      "related_terms": ["FCI", "Fondo Común de Inversión", "VCP"],
+      "related_lesson": null
+    },
+    {
+      "term": "Take Profit",
+      "definition": "Orden automática para vender un activo cuando alcanza cierto precio objetivo y asegurar ganancias. Ejemplo: compraste a $100, ponés take profit en $130. Si llega a $130, vende automáticamente. Evita arrepentimientos por codicia.",
+      "related_terms": ["Stop Loss", "Orden", "Gestión de Riesgo"],
+      "related_lesson": null
+    },
+    {
+      "term": "Ratio Sharpe",
+      "definition": "Mide el rendimiento de una inversión ajustado por riesgo. Se calcula: (Rendimiento - Tasa libre de riesgo) / Volatilidad. Ratio alto = buena recompensa por el riesgo tomado. Ayuda a comparar inversiones con diferentes perfiles de riesgo.",
+      "related_terms": ["Volatilidad", "Riesgo", "Rendimiento"],
+      "related_lesson": null
+    },
+    {
+      "term": "IPC",
+      "definition": "Índice de Precios al Consumidor. Mide la evolución del costo de una canasta de bienes y servicios típicos de una familia. Es el indicador oficial de inflación en Argentina. INDEC lo publica mensualmente. Los bonos CER se ajustan por IPC.",
+      "related_terms": ["Inflación", "CER", "INDEC"],
+      "related_lesson": "/courses/basics/02-inflacion"
+    },
+    {
+      "term": "Apalancamiento",
+      "definition": "Usar deuda o capital prestado para invertir, amplificando potenciales ganancias Y pérdidas. Ejemplo: invertís $10.000 propios + $10.000 prestados. Si ganas 20%, ganás $4.000 sobre $10.000 (40% ROI). Pero si perdés 20%, perdés $4.000 (40% pérdida). Muy riesgoso.",
+      "related_terms": ["Margen", "Deuda", "Riesgo"],
+      "related_lesson": null
+    },
+    {
+      "term": "Benchmark",
+      "definition": "Punto de referencia para evaluar el desempeño de una inversión. Para acciones argentinas: índice Merval. Para USA: S&P 500. Si tu portfolio rinde 15% y el benchmark 20%, técnicamente rendiste 'mal' aunque ganaste. Sirve para comparar.",
+      "related_terms": ["Índice", "S&P 500", "Merval"],
+      "related_lesson": null
+    }
+  ]
+}

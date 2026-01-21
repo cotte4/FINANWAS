@@ -1,0 +1,9 @@
+{
+  "title": "CEDEARs: Invierte en el Mundo desde Argentina",
+  "description": "Aprende como los CEDEARs te permiten invertir en las empresas mas grandes del mundo como Apple, Google y Amazon, operando en pesos desde Argentina.",
+  "duration_minutes": 15,
+  "difficulty": "intermediate",
+  "order": 2,
+  "prerequisites": ["01-que-son-acciones"],
+  "tags": ["CEDEARs", "acciones internacionales", "dolar", "inversion internacional"]
+}

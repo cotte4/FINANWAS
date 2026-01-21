@@ -1,0 +1,9 @@
+{
+  "title": "CEDEARs: Invertir en Empresas Internacionales desde Argentina",
+  "description": "Aprende cómo comprar acciones de Apple, Google o Tesla desde Argentina usando CEDEARs",
+  "duration_minutes": 7,
+  "difficulty": "beginner",
+  "order": 2,
+  "prerequisites": ["01-que-son-acciones"],
+  "tags": ["CEDEARs", "acciones-internacionales", "dolarización", "renta-variable"]
+}
