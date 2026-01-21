@@ -43,10 +43,13 @@ Based on comprehensive code review of iteration 1/15.
 
 ## Advanced Features
 
-### **Multi-Currency Support with Auto-Conversion**
+### âœ… **Multi-Currency Support with Auto-Conversion** - COMPLETED
+**Completed**: 2026-01-21
+**Implementation Notes**: Comprehensive multi-currency support implemented with automatic conversion to user's preferred base currency. Created exchange rate service using exchangerate-api.com (free tier) with 1-hour server-side caching. Added preferred_currency field to user_profiles table (migration 012). Built currency conversion utilities supporting 10 major currencies (ARS, USD, EUR, BRL, GBP, JPY, CAD, CHF, CNY, MXN). Updated portfolio summary calculations to convert all assets to base currency using convertMultipleCurrencies(). Added currency preference UI to profile page with visual currency selector. Updated portfolio page to display values in preferred currency with proper symbols. Created API endpoint /api/market/exchange-rates for rate queries. Comprehensive MULTI_CURRENCY.md documentation included. All assets maintain original purchase currency while portfolio summary shows unified view in preferred currency.
+
 - **Description**: Automatic currency conversion for portfolio summary
 - **Rationale**: Users have assets in USD, ARS, EUR - need unified view
-- **Implementation**: Integrate exchange rate API, add base currency preference
+- **Implementation**: Exchange rate API integration with caching, base currency preference in profile, automatic portfolio conversion
 - **Effort**: Medium
 - **Priority**: Should-have
 

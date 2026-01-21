@@ -39,6 +39,7 @@ export interface UserProfile {
   investment_horizon: string | null;
   questionnaire_completed: boolean;
   questionnaire_completed_at: string | null;
+  preferred_currency: string;
   updated_at: string;
 }
 
@@ -159,9 +160,10 @@ export type Database = {
       };
       user_profiles: {
         Row: UserProfile;
-        Insert: Omit<UserProfile, 'id' | 'questionnaire_completed' | 'updated_at'> & {
+        Insert: Omit<UserProfile, 'id' | 'questionnaire_completed' | 'preferred_currency' | 'updated_at'> & {
           id?: string;
           questionnaire_completed?: boolean;
+          preferred_currency?: string;
           updated_at?: string;
         };
         Update: Partial<Omit<UserProfile, 'id'>>;

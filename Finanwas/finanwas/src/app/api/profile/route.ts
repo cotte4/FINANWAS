@@ -85,6 +85,21 @@ export async function GET(request: NextRequest) {
  * Updates the user profile for the authenticated user
  */
 export async function PUT(request: NextRequest) {
+  return handleProfileUpdate(request);
+}
+
+/**
+ * PATCH /api/profile
+ * Partially updates the user profile for the authenticated user
+ */
+export async function PATCH(request: NextRequest) {
+  return handleProfileUpdate(request);
+}
+
+/**
+ * Shared function to handle profile updates
+ */
+async function handleProfileUpdate(request: NextRequest) {
   try {
     // Get the auth token from cookie
     const token = await getAuthCookie();
@@ -125,6 +140,7 @@ export async function PUT(request: NextRequest) {
     if (body.income_range !== undefined) updateData.income_range = body.income_range;
     if (body.expense_range !== undefined) updateData.expense_range = body.expense_range;
     if (body.investment_horizon !== undefined) updateData.investment_horizon = body.investment_horizon;
+    if (body.preferred_currency !== undefined) updateData.preferred_currency = body.preferred_currency.toUpperCase();
     if (body.questionnaire_completed !== undefined) {
       updateData.questionnaire_completed = body.questionnaire_completed;
       if (body.questionnaire_completed) {

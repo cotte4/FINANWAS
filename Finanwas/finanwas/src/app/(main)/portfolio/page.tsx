@@ -11,6 +11,7 @@ import { PieChart } from "@/components/charts/PieChart"
 import { EmptyState } from "@/components/ui/empty-state"
 import { AddAssetModal } from "@/components/portfolio/AddAssetModal"
 import { EditAssetModal } from "@/components/portfolio/EditAssetModal"
+import { getCurrencySymbol } from "@/lib/constants/currency-options"
 import { toast } from "sonner"
 import {
   BriefcaseIcon,
@@ -189,15 +190,15 @@ export default function PortfolioPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Valor Total"
-          value={`$${summary.totalValue.toLocaleString()}`}
-          description="Portfolio completo"
+          value={`${getCurrencySymbol(summary.currency)}${summary.totalValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+          description={`Portfolio en ${summary.currency}`}
           icon={BriefcaseIcon}
           variant="primary"
           isLoading={isLoading}
         />
         <StatsCard
           title="Ganancia/Pérdida"
-          value={`$${summary.totalGainLoss.toLocaleString()}`}
+          value={`${getCurrencySymbol(summary.currency)}${summary.totalGainLoss.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
           description={`${summary.totalGainLossPercent.toFixed(2)}% total`}
           trend={{ value: summary.totalGainLossPercent }}
           icon={TrendingUpIcon}
@@ -206,8 +207,8 @@ export default function PortfolioPage() {
         />
         <StatsCard
           title="Capital Invertido"
-          value={`$${summary.totalInvested.toLocaleString()}`}
-          description="Total aportado"
+          value={`${getCurrencySymbol(summary.currency)}${summary.totalInvested.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+          description={`Total en ${summary.currency}`}
           isLoading={isLoading}
         />
         <StatsCard

@@ -1,5 +1,6 @@
 import { createClient } from '../supabase'
 import type { PortfolioAsset, Database } from '@/types/database'
+import { convertMultipleCurrencies } from '@/lib/services/exchange-rates'
 
 /**
  * Interfaz para resumen del portafolio
@@ -10,6 +11,7 @@ export interface PortfolioSummary {
   totalCurrentValue: number
   totalGainLoss: number
   percentageGainLoss: number
+  currency: string // Base currency for the summary
   assetsByType: Record<string, {
     count: number
     invested: number
@@ -290,17 +292,19 @@ export async function bulkUpdatePrices(updates: PriceUpdate[]): Promise<number> 
 
 /**
  * Calcula el resumen del portafolio de un usuario
+ * Convierte todos los valores a la moneda preferida del usuario
  *
  * @example
- * const summary = await getPortfolioSummary('user-id')
- * console.log(`Valor total: $${summary.totalCurrentValue}`)
+ * const summary = await getPortfolioSummary('user-id', 'USD')
+ * console.log(`Valor total: $${summary.totalCurrentValue} ${summary.currency}`)
  * console.log(`Ganancia/Pérdida: ${summary.percentageGainLoss}%`)
  *
  * @param userId - ID del usuario
- * @returns Resumen del portafolio con totales y estadísticas
+ * @param baseCurrency - Moneda base para el resumen (opcional, default 'USD')
+ * @returns Resumen del portafolio con totales y estadísticas en la moneda base
  * @throws Error si hay un problema con la base de datos
  */
-export async function getPortfolioSummary(userId: string): Promise<PortfolioSummary> {
+export async function getPortfolioSummary(userId: string, baseCurrency: string = 'USD'): Promise<PortfolioSummary> {
   try {
     const assets = await getUserAssets(userId)
 
@@ -311,13 +315,28 @@ export async function getPortfolioSummary(userId: string): Promise<PortfolioSumm
         totalCurrentValue: 0,
         totalGainLoss: 0,
         percentageGainLoss: 0,
+        currency: baseCurrency,
         assetsByType: {},
         lastUpdated: null,
       }
     }
 
-    let totalInvested = 0
-    let totalCurrentValue = 0
+    // Prepare amounts for conversion
+    const investedAmounts = assets.map(asset => ({
+      amount: asset.quantity * asset.purchase_price,
+      currency: asset.currency,
+    }))
+
+    const currentValueAmounts = assets.map(asset => ({
+      amount: asset.quantity * (asset.current_price || asset.purchase_price),
+      currency: asset.currency,
+    }))
+
+    // Convert all amounts to base currency
+    const totalInvested = await convertMultipleCurrencies(investedAmounts, baseCurrency)
+    const totalCurrentValue = await convertMultipleCurrencies(currentValueAmounts, baseCurrency)
+
+    // Calculate assets by type (also converted to base currency)
     const assetsByType: Record<string, { count: number; invested: number; currentValue: number }> = {}
     let lastUpdated: string | null = null
 
@@ -325,8 +344,10 @@ export async function getPortfolioSummary(userId: string): Promise<PortfolioSumm
       const invested = asset.quantity * asset.purchase_price
       const currentValue = asset.quantity * (asset.current_price || asset.purchase_price)
 
-      totalInvested += invested
-      totalCurrentValue += currentValue
+      // Convert to base currency
+      const { convertCurrency } = await import('@/lib/services/exchange-rates')
+      const investedConverted = await convertCurrency(invested, asset.currency, baseCurrency)
+      const currentValueConverted = await convertCurrency(currentValue, asset.currency, baseCurrency)
 
       // Agrupar por tipo
       if (!assetsByType[asset.type]) {
@@ -337,8 +358,8 @@ export async function getPortfolioSummary(userId: string): Promise<PortfolioSumm
         }
       }
       assetsByType[asset.type].count++
-      assetsByType[asset.type].invested += invested
-      assetsByType[asset.type].currentValue += currentValue
+      assetsByType[asset.type].invested += investedConverted
+      assetsByType[asset.type].currentValue += currentValueConverted
 
       // Actualizar última fecha de actualización de precio
       if (asset.current_price_updated_at) {
@@ -359,6 +380,7 @@ export async function getPortfolioSummary(userId: string): Promise<PortfolioSumm
       totalCurrentValue,
       totalGainLoss,
       percentageGainLoss,
+      currency: baseCurrency,
       assetsByType,
       lastUpdated,
     }

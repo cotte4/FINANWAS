@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthCookie } from '@/lib/auth/cookies';
 import { verifyToken } from '@/lib/auth/jwt';
 import { getUserAssets, createAsset, getPortfolioSummary } from '@/lib/db/queries/portfolio';
+import { getUserPreferredCurrency } from '@/lib/db/queries/user-preferences';
 import { sanitizeString, sanitizeTicker, sanitizeNumber } from '@/lib/utils/sanitize';
 import { logApiError } from '@/lib/monitoring/logger';
 
@@ -32,9 +33,12 @@ export async function GET(request: NextRequest) {
 
     userId = payload.userId;
 
-    // Get user assets and summary
+    // Get user's preferred currency
+    const preferredCurrency = await getUserPreferredCurrency(payload.userId);
+
+    // Get user assets and summary (in preferred currency)
     const assets = await getUserAssets(payload.userId);
-    const summary = await getPortfolioSummary(payload.userId);
+    const summary = await getPortfolioSummary(payload.userId, preferredCurrency);
 
     return NextResponse.json({
       assets,
@@ -43,7 +47,7 @@ export async function GET(request: NextRequest) {
         totalInvested: summary.totalInvested,
         totalGainLoss: summary.totalGainLoss,
         totalGainLossPercent: summary.percentageGainLoss,
-        currency: 'USD', // Default currency for summary
+        currency: summary.currency,
       },
     }, { status: 200 });
   } catch (error) {
