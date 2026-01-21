@@ -45,6 +45,13 @@ export default function LoginPage() {
         return;
       }
 
+      // Check if 2FA is required
+      if (data.requires2FA) {
+        // Redirect to 2FA verification page
+        router.push(`/login/verify-2fa?userId=${data.userId}&name=${encodeURIComponent(data.name)}`);
+        return;
+      }
+
       // Login successful - redirect to dashboard
       router.push('/dashboard');
     } catch (err) {

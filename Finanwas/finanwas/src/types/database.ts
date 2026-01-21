@@ -12,6 +12,9 @@ export interface User {
   role: 'user' | 'admin';
   created_at: string;
   last_login: string | null;
+  two_factor_enabled: boolean;
+  two_factor_secret: string | null;
+  two_factor_backup_codes: string[] | null;
 }
 
 // InvitationCode table interface
@@ -141,10 +144,13 @@ export type Database = {
     Tables: {
       users: {
         Row: User;
-        Insert: Omit<User, 'id' | 'created_at' | 'last_login'> & {
+        Insert: Omit<User, 'id' | 'created_at' | 'last_login' | 'two_factor_enabled' | 'two_factor_secret' | 'two_factor_backup_codes'> & {
           id?: string;
           created_at?: string;
           last_login?: string | null;
+          two_factor_enabled?: boolean;
+          two_factor_secret?: string | null;
+          two_factor_backup_codes?: string[] | null;
         };
         Update: Partial<Omit<User, 'id'>>;
       };

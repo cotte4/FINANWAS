@@ -6,6 +6,9 @@ import { createClient } from '@/lib/db/supabase';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { MobileHeader } from '@/components/layout/MobileHeader';
 
+// Force dynamic rendering because this layout uses cookies() for auth
+export const dynamic = 'force-dynamic';
+
 /**
  * Fetches the current authenticated user
  * @returns User data if authenticated

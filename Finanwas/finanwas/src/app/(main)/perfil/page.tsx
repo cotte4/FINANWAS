@@ -29,7 +29,8 @@ import {
   CoinsIcon,
 } from "lucide-react"
 
-import type { UserProfile } from '@/types/database'
+import type { UserProfile, User } from '@/types/database'
+import { TwoFactorSettings } from '@/components/auth/TwoFactorSettings'
 
 /**
  * Profile Page
@@ -43,25 +44,48 @@ export default function PerfilPage() {
   const [isExporting, setIsExporting] = React.useState(false)
   const [isUpdatingCurrency, setIsUpdatingCurrency] = React.useState(false)
   const [selectedCurrency, setSelectedCurrency] = React.useState<string>('USD')
+  const [userDetails, setUserDetails] = React.useState<User | null>(null)
 
-  // Fetch user profile from API
+  // Fetch user profile and user details from API
   React.useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/profile')
-        if (response.ok) {
-          const data = await response.json()
+        const [profileResponse, userResponse] = await Promise.all([
+          fetch('/api/profile'),
+          fetch('/api/user/me'),
+        ])
+
+        if (profileResponse.ok) {
+          const data = await profileResponse.json()
           setProfile(data)
           setSelectedCurrency(data.preferred_currency || 'USD')
         }
+
+        if (userResponse.ok) {
+          const userData = await userResponse.json()
+          setUserDetails(userData)
+        }
       } catch (error) {
-        console.error('Failed to fetch profile:', error)
+        console.error('Failed to fetch data:', error)
       } finally {
         setIsLoading(false)
       }
     }
 
-    fetchProfile()
+    fetchData()
+  }, [])
+
+  // Refresh user details (for 2FA status updates)
+  const refreshUserDetails = React.useCallback(async () => {
+    try {
+      const response = await fetch('/api/user/me')
+      if (response.ok) {
+        const userData = await response.json()
+        setUserDetails(userData)
+      }
+    } catch (error) {
+      console.error('Failed to refresh user details:', error)
+    }
   }, [])
 
   // Calculate investor type
@@ -462,18 +486,27 @@ export default function PerfilPage() {
         </CardContent>
       </Card>
 
-      {/* Data & Privacy Section */}
+      {/* Security & Privacy Section */}
       <Card>
         <CardHeader>
           <div className="flex items-center gap-2">
             <LockIcon className="size-5 text-primary" />
-            <CardTitle>Datos y Privacidad</CardTitle>
+            <CardTitle>Seguridad y Privacidad</CardTitle>
           </div>
           <CardDescription>
-            Administrá tus datos personales y ejercé tus derechos de privacidad
+            Administrá la seguridad de tu cuenta y tus derechos de privacidad
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Two-Factor Authentication */}
+          {userDetails && (
+            <TwoFactorSettings
+              is2FAEnabled={userDetails.two_factor_enabled}
+              onStatusChange={refreshUserDetails}
+            />
+          )}
+
+          {/* Data Export */}
           <div className="flex items-start justify-between p-4 rounded-lg border border-border bg-muted/50">
             <div className="flex-1">
               <h3 className="font-semibold mb-1">Exportar mis datos</h3>
@@ -498,10 +531,11 @@ export default function PerfilPage() {
           </div>
 
           <div className="text-xs text-muted-foreground p-4 bg-muted/30 rounded-lg">
-            <p className="font-semibold mb-2">Acerca de tus datos:</p>
+            <p className="font-semibold mb-2">Acerca de tu seguridad:</p>
             <ul className="list-disc list-inside space-y-1">
               <li>Tus datos están encriptados y almacenados de forma segura</li>
               <li>Solo vos tenés acceso a tu información personal</li>
+              <li>La autenticación de dos factores protege tu cuenta contra accesos no autorizados</li>
               <li>Nunca compartimos tus datos sin tu consentimiento</li>
               <li>Podés exportar o eliminar tus datos en cualquier momento</li>
             </ul>

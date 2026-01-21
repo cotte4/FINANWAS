@@ -71,6 +71,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if 2FA is enabled
+    if (user.two_factor_enabled && user.two_factor_secret) {
+      // Return requires2FA flag instead of logging in
+      // Frontend will redirect to 2FA verification page
+      return NextResponse.json(
+        {
+          success: true,
+          requires2FA: true,
+          userId: user.id,
+          email: user.email,
+          name: user.name,
+        },
+        { status: 200 }
+      );
+    }
+
     // Update last_login timestamp
     const { error: updateError } = await supabase
       .from('users')
@@ -98,6 +114,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
+        requires2FA: false,
         user: {
           id: user.id,
           email: user.email,
