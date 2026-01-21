@@ -76,7 +76,12 @@ export async function GET(
         },
       };
 
-      return NextResponse.json(response, { status: 200 });
+      return NextResponse.json(response, {
+        status: 200,
+        headers: {
+          'Cache-Control': 'private, max-age=900', // 15 minutes browser cache (matches server cache)
+        },
+      });
     } catch (apiError: any) {
       console.error('Yahoo Finance API error:', apiError);
 

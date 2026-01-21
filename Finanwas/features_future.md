@@ -138,10 +138,13 @@ Based on comprehensive code review of iteration 1/15.
 - **Effort**: Low
 - **Priority**: Nice-to-have
 
-### **API Response Caching**
+### âœ… **API Response Caching** - COMPLETED
+**Completed**: 2026-01-21
+**Implementation Notes**: Comprehensive API response caching implemented across all major endpoints. Fixed portfolio refresh to use cached Yahoo Finance module (15-min cache) instead of direct API calls. Added server-side in-memory caching to glossary (1-hour, file read optimization), courses (1-hour, file read optimization), dollar exchange rates (1-hour). Added HTTP Cache-Control headers to all cached endpoints for browser-side caching (public for static content, private for user-specific data). Created CACHING.md documentation detailing the complete caching strategy, cache durations, and future improvements.
+
 - **Description**: Cache expensive API calls (Yahoo Finance, market data)
 - **Rationale**: Reduce API costs and improve response times
-- **Implementation**: Already partially done - extend to more endpoints
+- **Implementation**: Server-side in-memory caching + HTTP Cache-Control headers
 - **Effort**: Low
 - **Priority**: Should-have
 

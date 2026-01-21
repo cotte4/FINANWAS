@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthCookie } from '@/lib/auth/cookies';
 import { verifyToken } from '@/lib/auth/jwt';
 import { getUserAssets, updateAssetPrice } from '@/lib/db/queries/portfolio';
-import yahooFinance from 'yahoo-finance2';
+import { getQuote } from '@/lib/api/yahoo-finance';
 
 /**
  * POST /api/portfolio/refresh-prices
@@ -47,14 +47,15 @@ export async function POST(request: NextRequest) {
     const updatedAssets: any[] = [];
 
     // Update prices for all assets in parallel for better performance
+    // Uses cached getQuote() to reduce API calls (15-minute cache)
     const updatePromises = assetsWithTickers.map(async (asset) => {
       try {
-        const quote = await yahooFinance.quote(asset.ticker!) as any;
+        const quoteData = await getQuote(asset.ticker!);
 
-        if (quote && quote.regularMarketPrice) {
+        if (quoteData && quoteData.price !== null) {
           const updatedAsset = await updateAssetPrice(
             asset.id,
-            quote.regularMarketPrice,
+            quoteData.price,
             'yahoo-finance'
           );
           return { success: true, asset: updatedAsset };

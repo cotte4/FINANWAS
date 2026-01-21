@@ -31,7 +31,12 @@ export async function GET(request: NextRequest) {
 
     // Check cache
     if (dollarCache && Date.now() - dollarCache.timestamp < CACHE_DURATION) {
-      return NextResponse.json(dollarCache.data, { status: 200 });
+      return NextResponse.json(dollarCache.data, {
+        status: 200,
+        headers: {
+          'Cache-Control': 'private, max-age=3600', // 1 hour browser cache
+        },
+      });
     }
 
     // Fetch from DolarApi
@@ -62,7 +67,12 @@ export async function GET(request: NextRequest) {
         timestamp: Date.now(),
       };
 
-      return NextResponse.json(response, { status: 200 });
+      return NextResponse.json(response, {
+        status: 200,
+        headers: {
+          'Cache-Control': 'private, max-age=3600', // 1 hour browser cache
+        },
+      });
     } catch (apiError: any) {
       console.error('DolarApi error:', apiError);
       return NextResponse.json(
