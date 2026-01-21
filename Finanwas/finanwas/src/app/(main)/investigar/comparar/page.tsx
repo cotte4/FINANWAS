@@ -74,8 +74,24 @@ export default function CompararPage() {
       const response = await fetch(`/api/market/stock/${ticker}`)
 
       if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || "No encontramos esa empresa")
+        let errorMsg = "Error al obtener datos de la empresa"
+
+        if (response.status === 401) {
+          errorMsg = "Sesión expirada. Por favor, inicia sesión nuevamente"
+        } else if (response.status === 404) {
+          errorMsg = `No encontramos la empresa "${ticker}". Verifica el símbolo bursátil`
+        } else if (response.status === 400) {
+          errorMsg = "Símbolo bursátil inválido"
+        } else {
+          try {
+            const data = await response.json()
+            errorMsg = data.error || errorMsg
+          } catch {
+            // If JSON parsing fails, use default error message
+          }
+        }
+
+        throw new Error(errorMsg)
       }
 
       const data: CompanyData = await response.json()

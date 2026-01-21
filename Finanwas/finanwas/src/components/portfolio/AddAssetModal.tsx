@@ -20,21 +20,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { toast } from "sonner"
+import { ASSET_TYPES } from "@/lib/constants/asset-types"
 
 interface AddAssetModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSuccess: () => void
 }
-
-const ASSET_TYPES = [
-  { value: "accion", label: "Acción" },
-  { value: "etf", label: "ETF" },
-  { value: "bono", label: "Bono" },
-  { value: "crypto", label: "Crypto" },
-  { value: "efectivo", label: "Efectivo" },
-  { value: "otro", label: "Otro" },
-]
 
 const CURRENCIES = [
   { value: "USD", label: "USD" },

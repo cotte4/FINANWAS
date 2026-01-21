@@ -392,7 +392,7 @@ export async function getTipOfTheDay(): Promise<TipOfTheDayResponse> {
 export async function getStockData(
   ticker: string
 ): Promise<StockDataResponse> {
-  return http.get<StockDataResponse>(`/api/market/stocks/${ticker}`);
+  return http.get<StockDataResponse>(`/api/market/stock/${ticker}`);
 }
 
 /**

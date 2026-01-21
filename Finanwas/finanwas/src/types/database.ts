@@ -54,6 +54,11 @@ export interface LessonProgress {
   lesson_slug: string;
   completed: boolean;
   completed_at: string | null;
+  started_at: string | null;
+  time_spent_seconds: number;
+  last_accessed_at: string | null;
+  view_count: number;
+  progress_percentage: number;
 }
 
 // TipView table interface
@@ -198,10 +203,15 @@ export type Database = {
       };
       lesson_progress: {
         Row: LessonProgress;
-        Insert: Omit<LessonProgress, 'id' | 'completed' | 'completed_at'> & {
+        Insert: Omit<LessonProgress, 'id' | 'completed' | 'completed_at' | 'started_at' | 'time_spent_seconds' | 'last_accessed_at' | 'view_count' | 'progress_percentage'> & {
           id?: string;
           completed?: boolean;
           completed_at?: string | null;
+          started_at?: string | null;
+          time_spent_seconds?: number;
+          last_accessed_at?: string | null;
+          view_count?: number;
+          progress_percentage?: number;
         };
         Update: Partial<Omit<LessonProgress, 'id'>>;
       };

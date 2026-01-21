@@ -32,7 +32,7 @@ CREATE INDEX idx_portfolio_assets_type ON portfolio_assets(type);
 COMMENT ON TABLE portfolio_assets IS 'Stores user portfolio assets including stocks, ETFs, bonds, crypto, and other investments';
 COMMENT ON COLUMN portfolio_assets.id IS 'Unique identifier for the asset';
 COMMENT ON COLUMN portfolio_assets.user_id IS 'Reference to the user who owns this asset';
-COMMENT ON COLUMN portfolio_assets.type IS 'Asset type (Acción, ETF, Bono, Crypto, Efectivo, Otro)';
+COMMENT ON COLUMN portfolio_assets.type IS 'Asset type (Acción, ETF, Bono, Crypto, Efectivo, Fondo Común, Cedear, ON, Plazo Fijo, Otro)';
 COMMENT ON COLUMN portfolio_assets.ticker IS 'Ticker symbol (optional, for stocks/ETFs)';
 COMMENT ON COLUMN portfolio_assets.name IS 'Asset name or description';
 COMMENT ON COLUMN portfolio_assets.quantity IS 'Number of units owned';

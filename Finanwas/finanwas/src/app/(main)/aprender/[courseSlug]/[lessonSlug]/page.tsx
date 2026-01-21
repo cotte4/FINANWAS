@@ -9,14 +9,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Progress } from "@/components/ui/progress"
 import {
   CheckCircleIcon,
   ClockIcon,
   ArrowRightIcon,
   ArrowLeftIcon,
   BookOpenIcon,
+  TimerIcon,
 } from "lucide-react"
 import { toast } from "sonner"
+import { useLessonTracking, formatTime } from "@/hooks/useLessonTracking"
 
 /**
  * Lesson Page
@@ -56,6 +59,42 @@ export default function LessonPage() {
   const [lessonData, setLessonData] = React.useState<LessonData | null>(null)
   const [isMarkingComplete, setIsMarkingComplete] = React.useState(false)
 
+  // Hook para rastrear tiempo y progreso de lectura
+  const { timeSpent, readingProgress } = useLessonTracking({
+    courseSlug,
+    lessonSlug,
+    onTimeUpdate: async (seconds) => {
+      try {
+        await fetch('/api/progress/time', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            course_slug: courseSlug,
+            lesson_slug: lessonSlug,
+            additional_seconds: seconds,
+          }),
+        })
+      } catch (error) {
+        console.error('Error updating time:', error)
+      }
+    },
+    onProgressUpdate: async (percentage) => {
+      try {
+        await fetch('/api/progress/reading', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            course_slug: courseSlug,
+            lesson_slug: lessonSlug,
+            percentage,
+          }),
+        })
+      } catch (error) {
+        console.error('Error updating reading progress:', error)
+      }
+    },
+  })
+
   React.useEffect(() => {
     async function loadLessonData() {
       try {
@@ -69,6 +108,16 @@ export default function LessonPage() {
         const data = await lessonRes.json()
 
         setLessonData(data)
+
+        // Registrar el inicio de la lección
+        await fetch('/api/progress/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            course_slug: courseSlug,
+            lesson_slug: lessonSlug,
+          }),
+        })
       } catch (error) {
         console.error('Error loading lesson:', error)
         toast.error('Error al cargar la lección')
@@ -175,6 +224,10 @@ export default function LessonPage() {
           <span>Tiempo estimado: {lessonData.duration_minutes} min</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <TimerIcon className="size-4" />
+          <span>Tiempo invertido: {formatTime(timeSpent)}</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <BookOpenIcon className="size-4" />
           <span>Lección {lessonData.order}</span>
         </div>
@@ -188,6 +241,19 @@ export default function LessonPage() {
           Progreso del curso: {lessonData.courseProgress.completed}/{lessonData.courseProgress.total} lecciones
         </div>
       </div>
+
+      {/* Reading Progress Bar */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Progreso de lectura</span>
+              <span className="font-medium">{readingProgress}%</span>
+            </div>
+            <Progress value={readingProgress} className="h-2" />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Lesson Content */}
       <Card>
