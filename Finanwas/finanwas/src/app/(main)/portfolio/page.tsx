@@ -11,6 +11,7 @@ import { PieChart } from "@/components/charts/PieChart"
 import { EmptyState } from "@/components/ui/empty-state"
 import { AddAssetModal } from "@/components/portfolio/AddAssetModal"
 import { EditAssetModal } from "@/components/portfolio/EditAssetModal"
+import { DividendTracker } from "@/components/portfolio/DividendTracker"
 import { getCurrencySymbol } from "@/lib/constants/currency-options"
 import { toast } from "sonner"
 import {
@@ -456,6 +457,11 @@ export default function PortfolioPage() {
           </Card>
         </div>
       </div>
+
+      {/* Dividend Tracking */}
+      {assets.length > 0 && (
+        <DividendTracker assets={assets} baseCurrency={summary.currency} />
+      )}
 
       {/* Add Asset Modal */}
       <AddAssetModal

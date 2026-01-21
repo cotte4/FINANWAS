@@ -80,6 +80,28 @@ export interface PortfolioAsset {
   current_price_updated_at: string | null;
   price_source: string;
   notes: string | null;
+  dividend_yield: number | null;
+  dividend_frequency: string | null;
+  next_dividend_date: string | null;
+  last_dividend_amount: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// DividendPayment table interface
+export interface DividendPayment {
+  id: string;
+  asset_id: string;
+  user_id: string;
+  payment_date: string;
+  amount_per_share: number;
+  total_amount: number;
+  currency: string;
+  payment_type: 'cash' | 'stock' | 'drip';
+  shares_received: number | null;
+  reinvested: boolean;
+  withholding_tax: number;
+  notes: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -194,11 +216,15 @@ export type Database = {
       };
       portfolio_assets: {
         Row: PortfolioAsset;
-        Insert: Omit<PortfolioAsset, 'id' | 'current_price' | 'current_price_updated_at' | 'price_source' | 'created_at' | 'updated_at'> & {
+        Insert: Omit<PortfolioAsset, 'id' | 'current_price' | 'current_price_updated_at' | 'price_source' | 'dividend_yield' | 'dividend_frequency' | 'next_dividend_date' | 'last_dividend_amount' | 'created_at' | 'updated_at'> & {
           id?: string;
           current_price?: number | null;
           current_price_updated_at?: string | null;
           price_source?: string;
+          dividend_yield?: number | null;
+          dividend_frequency?: string | null;
+          next_dividend_date?: string | null;
+          last_dividend_amount?: number | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -242,6 +268,18 @@ export type Database = {
           created_at?: string;
         };
         Update: Partial<Omit<ErrorLog, 'id'>>;
+      };
+      dividend_payments: {
+        Row: DividendPayment;
+        Insert: Omit<DividendPayment, 'id' | 'payment_type' | 'reinvested' | 'withholding_tax' | 'created_at' | 'updated_at'> & {
+          id?: string;
+          payment_type?: 'cash' | 'stock' | 'drip';
+          reinvested?: boolean;
+          withholding_tax?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Omit<DividendPayment, 'id'>>;
       };
       // Additional tables will be added as they are created in subsequent user stories
     };
