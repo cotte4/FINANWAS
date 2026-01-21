@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd Finanwas/finanwas && npm run build",
+  "installCommand": "cd Finanwas/finanwas && npm install",
+  "outputDirectory": "Finanwas/finanwas/.next"
+}
