@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Progress } from "@/components/ui/progress"
 import { BookOpenIcon, ArrowRightIcon, CheckCircle2Icon } from "lucide-react"
 
 /**
@@ -61,17 +60,6 @@ export function LearningWidget({ className }: LearningWidgetProps) {
   const completedLessons = React.useMemo(() => {
     return progress.filter(p => p.completed).length
   }, [progress])
-
-  // TODO: When course content system is implemented, calculate these from actual course data
-  const totalLessons = 24 // Placeholder total
-  const completionPercent = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0
-
-  // Mock data for current course and next lesson
-  // TODO: Replace with actual data from course content system
-  const currentCourse = completedLessons > 0 ? "Fundamentos de Inversión" : null
-  const nextLesson = completedLessons === 0
-    ? { title: "Interés Compuesto", course: "basics", slug: "01-interes-compuesto" }
-    : null
 
   if (isLoading) {
     return (
@@ -135,23 +123,9 @@ export function LearningWidget({ className }: LearningWidgetProps) {
               </p>
             </div>
 
-            {/* Next lesson suggestion */}
-            {nextLesson && (
-              <div className="p-3 bg-accent rounded-lg space-y-2">
-                <p className="text-xs font-medium text-muted-foreground">Próxima lección sugerida</p>
-                <p className="text-sm font-semibold">{nextLesson.title}</p>
-                <Button variant="outline" size="sm" className="w-full mt-2" asChild>
-                  <Link href={`/aprender/${nextLesson.course}/${nextLesson.slug}`}>
-                    Comenzar ahora
-                    <ArrowRightIcon className="ml-2 size-4" />
-                  </Link>
-                </Button>
-              </div>
-            )}
-
-            <Button variant="outline" className="w-full" asChild>
+            <Button variant="default" className="w-full" asChild>
               <Link href="/aprender">
-                Ver todos los cursos
+                Explorar cursos
                 <ArrowRightIcon className="ml-2 size-4" />
               </Link>
             </Button>
@@ -180,34 +154,9 @@ export function LearningWidget({ className }: LearningWidgetProps) {
                 <p className="text-2xl font-bold">{completedLessons}</p>
                 <CheckCircle2Icon className="size-5 text-success" />
               </div>
-              <p className="text-xs text-muted-foreground">
-                {completedLessons} de {totalLessons} lecciones
-              </p>
             </div>
             <BookOpenIcon className="size-8 text-secondary" />
           </div>
-
-          {/* Current course progress */}
-          {currentCourse && (
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <span className="font-medium">{currentCourse}</span>
-                <span className="text-muted-foreground">{Math.round(completionPercent)}%</span>
-              </div>
-              <Progress value={completionPercent} />
-              <p className="text-xs text-muted-foreground">
-                Continúa aprendiendo para completar este curso
-              </p>
-            </div>
-          )}
-
-          {/* Next lesson suggestion */}
-          {nextLesson && (
-            <div className="p-3 bg-accent rounded-lg space-y-2">
-              <p className="text-xs font-medium text-muted-foreground">Próxima lección</p>
-              <p className="text-sm font-semibold">{nextLesson.title}</p>
-            </div>
-          )}
 
           {/* Link to learning page */}
           <Button variant="outline" className="w-full" asChild>
